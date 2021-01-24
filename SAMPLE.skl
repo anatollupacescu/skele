@@ -1,0 +1,119 @@
+file inventory/inventory_test.go
+
+doc
+# Item is a named inventory record. Creation of a new item requires a unique name. Once added it can be disabled or enabled back. 
+# A disabled item can not be added to a recipe or provisioned.
+# Validator will take an item identifier and return error if it is not found or found in disabled status.
+
+col item(name, enabled)
+
+fun create(name) # create item
+
+pre
+    name_empty # empty name
+    name_is_taken # an item with this name already exists
+
+pos
+    item_created # valid item | item is created
+    item_not_created # valid item is not created | assert error
+
+fun disable() # disable item
+
+pos
+    item_disabled # item is disabled | success
+    item_not_disabled # failed to disable item | assert error
+
+fun enable() # enable item
+
+pos
+    item_enabled # item is enabled | success
+    item_not_enabled # failed to enable item | assert error
+
+fun valid() # validate item
+
+pre
+    item_not_found # item is not found
+    item_not_enabled # item enabled status is false
+
+pos _ # item is valid | success
+
+--------------------------------------------------------------------------------
+
+file recipe/recipe_test.go
+
+doc # recipe
+
+col recipe(name, ingredients, enabled)
+
+fun create(name, []ingredients)  # create recipe
+
+pre
+    name_empty # an empty name
+    name_is_taken # a recipe exists with this name
+    ingredients_empty # no ingredients
+    ingredients_contains_duplicates # an item appears twice
+    any_ingredients_has_no_qty # an item without quantity
+    any_ingredients_not_{inventory.valid} # an item is invalid
+
+pos
+    recipe_created # valid recipe | recipe is created
+    recipe_not_created # valid recipe is not created | assert error
+
+fun disable() # disable recipe
+
+pos
+    recipe_disabled # recipe is disabled | success
+    recipe_not_disabled # failed to disable recipe | assert error
+
+fun enable() # enable recipe
+
+pos
+    recipe_enabled # recipe is enabled | success
+    recipe_not_enabled # failed to enable recipe | assert error
+
+fun valid() # validate recipe
+
+pre
+    recipe_not_found # recipe is not found
+    recipe_not_enabled # recipe is not enabled
+
+pos _ # recipe is valid | success
+
+--------------------------------------------------------------------------------
+
+file stock/stock_test.go
+
+doc # stock
+
+col stock(item, qty)
+
+fun provision(item, qty)  # provision stock
+
+pre
+    qty_not_valid # quantity is 0 & quantity is negative
+    !maybe_we_dont_provision_disabled_items!
+    item_not_in_{col.item} # missing item
+
+pos
+    create_stock # first time provision for item | new quantity is equal to provisioned qty
+    update_stock # item has quantity in stock | stock quantity is incremented
+    failed_to_create_update_stock # valid provision is not saved | assert error
+
+--------------------------------------------------------------------------------
+
+file order/order_test.go
+
+doc # order
+
+col order(recipe, qty)
+
+fun create(recipe, qty) # create order
+
+pre
+    recipe_not_{recipe.valid} # an invalid recipe
+    any_recipe_items_do_not_have_enough_qty_in_{stock} #  a recipe item with not enough stock quantity
+
+pos
+    create_order & substract_each_recipe_item_from_{stock} # a valid order | stock is updated and order added
+    failed_to_substract_any_recipe_item_from_{stock} # failed to update stock | assert error
+    failed_to_create_order # failed to update stock | assert error
