@@ -15,19 +15,19 @@ pre
 
 pos
     item_created # valid item | item is created
-    item_not_created # valid item is not created | assert error
+    item_not_created # valid item is not created | error
 
 fun disable() # disable item
 
 pos
     item_disabled # item is disabled | success
-    item_not_disabled # failed to disable item | assert error
+    item_not_disabled # failed to disable item | error
 
 fun enable() # enable item
 
 pos
     item_enabled # item is enabled | success
-    item_not_enabled # failed to enable item | assert error
+    item_not_enabled # failed to enable item | error
 
 fun valid() # validate item
 
@@ -52,24 +52,24 @@ pre
     name_is_taken # a recipe exists with this name
     ingredients_empty # no ingredients
     ingredients_contains_duplicates # an item appears twice
-    any_ingredients_has_no_qty # an item without quantity
-    any_ingredients_not_{inventory.valid} # an item is invalid
+    an_ingredient_has_no_qty # an item without quantity
+    an_ingredient_not_{inventory.valid} # an item is invalid
 
 pos
     recipe_created # valid recipe | recipe is created
-    recipe_not_created # valid recipe is not created | assert error
+    recipe_not_created # valid recipe is not created | error
 
 fun disable() # disable recipe
 
 pos
     recipe_disabled # recipe is disabled | success
-    recipe_not_disabled # failed to disable recipe | assert error
+    recipe_not_disabled # failed to disable recipe | error
 
 fun enable() # enable recipe
 
 pos
     recipe_enabled # recipe is enabled | success
-    recipe_not_enabled # failed to enable recipe | assert error
+    recipe_not_enabled # failed to enable recipe | error
 
 fun valid() # validate recipe
 
@@ -97,7 +97,7 @@ pre
 pos
     create_stock # first time provision for item | new quantity is equal to provisioned qty
     update_stock # item has quantity in stock | stock quantity is incremented
-    failed_to_create_update_stock # valid provision is not saved | assert error
+    failed_to_create_update_stock # valid provision is not saved | error
 
 --------------------------------------------------------------------------------
 
@@ -115,5 +115,5 @@ pre
 
 pos
     create_order & substract_each_recipe_item_from_{stock} # a valid order | stock is updated and order added
-    failed_to_substract_any_recipe_item_from_{stock} # failed to update stock | assert error
-    failed_to_create_order # failed to update stock | assert error
+    failed_to_substract_any_recipe_item_from_{stock} # failed to update stock | error
+    failed_to_create_order # failed to update stock | error

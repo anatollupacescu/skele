@@ -16,52 +16,53 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 18, 86, 4,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 16, 90, 4,
 	2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7, 4,
-	8, 9, 8, 3, 2, 6, 2, 18, 10, 2, 13, 2, 14, 2, 19, 3, 2, 3, 2, 3, 3, 3,
-	3, 6, 3, 26, 10, 3, 13, 3, 14, 3, 27, 3, 4, 3, 4, 3, 4, 3, 4, 3, 4, 3,
-	4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 6, 5, 42, 10, 5, 13, 5, 14, 5, 43,
-	3, 5, 7, 5, 47, 10, 5, 12, 5, 14, 5, 50, 11, 5, 3, 5, 3, 5, 3, 6, 3, 6,
-	3, 6, 3, 6, 3, 6, 3, 6, 6, 6, 60, 10, 6, 13, 6, 14, 6, 61, 5, 6, 64, 10,
-	6, 3, 6, 3, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 74, 10, 7, 13,
-	7, 14, 7, 75, 5, 7, 78, 10, 7, 3, 7, 3, 7, 3, 8, 3, 8, 3, 8, 3, 8, 3, 8,
-	2, 2, 9, 2, 4, 6, 8, 10, 12, 14, 2, 2, 2, 86, 2, 17, 3, 2, 2, 2, 4, 23,
-	3, 2, 2, 2, 6, 29, 3, 2, 2, 2, 8, 35, 3, 2, 2, 2, 10, 63, 3, 2, 2, 2, 12,
-	77, 3, 2, 2, 2, 14, 81, 3, 2, 2, 2, 16, 18, 5, 4, 3, 2, 17, 16, 3, 2, 2,
-	2, 18, 19, 3, 2, 2, 2, 19, 17, 3, 2, 2, 2, 19, 20, 3, 2, 2, 2, 20, 21,
-	3, 2, 2, 2, 21, 22, 7, 2, 2, 3, 22, 3, 3, 2, 2, 2, 23, 25, 5, 6, 4, 2,
-	24, 26, 5, 8, 5, 2, 25, 24, 3, 2, 2, 2, 26, 27, 3, 2, 2, 2, 27, 25, 3,
-	2, 2, 2, 27, 28, 3, 2, 2, 2, 28, 5, 3, 2, 2, 2, 29, 30, 7, 4, 2, 2, 30,
-	31, 7, 11, 2, 2, 31, 32, 7, 14, 2, 2, 32, 33, 7, 10, 2, 2, 33, 34, 7, 12,
-	2, 2, 34, 7, 3, 2, 2, 2, 35, 36, 7, 3, 2, 2, 36, 37, 7, 11, 2, 2, 37, 38,
-	7, 9, 2, 2, 38, 39, 7, 13, 2, 2, 39, 41, 7, 8, 2, 2, 40, 42, 7, 12, 2,
-	2, 41, 40, 3, 2, 2, 2, 42, 43, 3, 2, 2, 2, 43, 41, 3, 2, 2, 2, 43, 44,
-	3, 2, 2, 2, 44, 48, 3, 2, 2, 2, 45, 47, 5, 10, 6, 2, 46, 45, 3, 2, 2, 2,
-	47, 50, 3, 2, 2, 2, 48, 46, 3, 2, 2, 2, 48, 49, 3, 2, 2, 2, 49, 51, 3,
-	2, 2, 2, 50, 48, 3, 2, 2, 2, 51, 52, 5, 12, 7, 2, 52, 9, 3, 2, 2, 2, 53,
-	54, 7, 6, 2, 2, 54, 55, 7, 11, 2, 2, 55, 64, 7, 8, 2, 2, 56, 59, 7, 6,
-	2, 2, 57, 58, 7, 12, 2, 2, 58, 60, 5, 14, 8, 2, 59, 57, 3, 2, 2, 2, 60,
-	61, 3, 2, 2, 2, 61, 59, 3, 2, 2, 2, 61, 62, 3, 2, 2, 2, 62, 64, 3, 2, 2,
-	2, 63, 53, 3, 2, 2, 2, 63, 56, 3, 2, 2, 2, 64, 65, 3, 2, 2, 2, 65, 66,
-	7, 12, 2, 2, 66, 11, 3, 2, 2, 2, 67, 68, 7, 7, 2, 2, 68, 69, 7, 11, 2,
-	2, 69, 78, 7, 8, 2, 2, 70, 73, 7, 7, 2, 2, 71, 72, 7, 12, 2, 2, 72, 74,
-	5, 14, 8, 2, 73, 71, 3, 2, 2, 2, 74, 75, 3, 2, 2, 2, 75, 73, 3, 2, 2, 2,
-	75, 76, 3, 2, 2, 2, 76, 78, 3, 2, 2, 2, 77, 67, 3, 2, 2, 2, 77, 70, 3,
-	2, 2, 2, 78, 79, 3, 2, 2, 2, 79, 80, 7, 12, 2, 2, 80, 13, 3, 2, 2, 2, 81,
-	82, 7, 16, 2, 2, 82, 83, 7, 11, 2, 2, 83, 84, 7, 8, 2, 2, 84, 15, 3, 2,
-	2, 2, 10, 19, 27, 43, 48, 61, 63, 75, 77,
+	8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 3, 2, 6, 2, 24, 10, 2,
+	13, 2, 14, 2, 25, 3, 2, 3, 2, 3, 3, 3, 3, 5, 3, 32, 10, 3, 3, 3, 5, 3,
+	35, 10, 3, 3, 3, 6, 3, 38, 10, 3, 13, 3, 14, 3, 39, 3, 4, 3, 4, 3, 4, 3,
+	4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6, 6, 6, 53, 10, 6, 13, 6, 14,
+	6, 54, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 61, 10, 7, 13, 7, 14, 7, 62, 3, 8,
+	3, 8, 3, 8, 3, 8, 5, 8, 69, 10, 8, 3, 8, 3, 8, 3, 9, 3, 9, 3, 9, 6, 9,
+	76, 10, 9, 13, 9, 14, 9, 77, 3, 10, 3, 10, 3, 10, 6, 10, 83, 10, 10, 13,
+	10, 14, 10, 84, 3, 11, 3, 11, 3, 11, 3, 11, 2, 2, 12, 2, 4, 6, 8, 10, 12,
+	14, 16, 18, 20, 2, 2, 2, 88, 2, 23, 3, 2, 2, 2, 4, 29, 3, 2, 2, 2, 6, 41,
+	3, 2, 2, 2, 8, 45, 3, 2, 2, 2, 10, 49, 3, 2, 2, 2, 12, 56, 3, 2, 2, 2,
+	14, 64, 3, 2, 2, 2, 16, 72, 3, 2, 2, 2, 18, 79, 3, 2, 2, 2, 20, 86, 3,
+	2, 2, 2, 22, 24, 5, 4, 3, 2, 23, 22, 3, 2, 2, 2, 24, 25, 3, 2, 2, 2, 25,
+	23, 3, 2, 2, 2, 25, 26, 3, 2, 2, 2, 26, 27, 3, 2, 2, 2, 27, 28, 7, 2, 2,
+	3, 28, 3, 3, 2, 2, 2, 29, 31, 5, 8, 5, 2, 30, 32, 5, 6, 4, 2, 31, 30, 3,
+	2, 2, 2, 31, 32, 3, 2, 2, 2, 32, 34, 3, 2, 2, 2, 33, 35, 5, 10, 6, 2, 34,
+	33, 3, 2, 2, 2, 34, 35, 3, 2, 2, 2, 35, 37, 3, 2, 2, 2, 36, 38, 5, 12,
+	7, 2, 37, 36, 3, 2, 2, 2, 38, 39, 3, 2, 2, 2, 39, 37, 3, 2, 2, 2, 39, 40,
+	3, 2, 2, 2, 40, 5, 3, 2, 2, 2, 41, 42, 7, 4, 2, 2, 42, 43, 7, 12, 2, 2,
+	43, 44, 7, 13, 2, 2, 44, 7, 3, 2, 2, 2, 45, 46, 7, 3, 2, 2, 46, 47, 7,
+	12, 2, 2, 47, 48, 7, 13, 2, 2, 48, 9, 3, 2, 2, 2, 49, 50, 7, 5, 2, 2, 50,
+	52, 7, 13, 2, 2, 51, 53, 5, 20, 11, 2, 52, 51, 3, 2, 2, 2, 53, 54, 3, 2,
+	2, 2, 54, 52, 3, 2, 2, 2, 54, 55, 3, 2, 2, 2, 55, 11, 3, 2, 2, 2, 56, 57,
+	7, 6, 2, 2, 57, 58, 7, 11, 2, 2, 58, 60, 7, 13, 2, 2, 59, 61, 5, 14, 8,
+	2, 60, 59, 3, 2, 2, 2, 61, 62, 3, 2, 2, 2, 62, 60, 3, 2, 2, 2, 62, 63,
+	3, 2, 2, 2, 63, 13, 3, 2, 2, 2, 64, 65, 7, 7, 2, 2, 65, 66, 7, 13, 2, 2,
+	66, 68, 5, 20, 11, 2, 67, 69, 5, 16, 9, 2, 68, 67, 3, 2, 2, 2, 68, 69,
+	3, 2, 2, 2, 69, 70, 3, 2, 2, 2, 70, 71, 5, 18, 10, 2, 71, 15, 3, 2, 2,
+	2, 72, 73, 7, 8, 2, 2, 73, 75, 7, 13, 2, 2, 74, 76, 5, 20, 11, 2, 75, 74,
+	3, 2, 2, 2, 76, 77, 3, 2, 2, 2, 77, 75, 3, 2, 2, 2, 77, 78, 3, 2, 2, 2,
+	78, 17, 3, 2, 2, 2, 79, 80, 7, 9, 2, 2, 80, 82, 7, 13, 2, 2, 81, 83, 5,
+	20, 11, 2, 82, 81, 3, 2, 2, 2, 83, 84, 3, 2, 2, 2, 84, 82, 3, 2, 2, 2,
+	84, 85, 3, 2, 2, 2, 85, 19, 3, 2, 2, 2, 86, 87, 7, 10, 2, 2, 87, 88, 7,
+	13, 2, 2, 88, 21, 3, 2, 2, 2, 11, 25, 31, 34, 39, 54, 62, 68, 77, 84,
 }
 var literalNames = []string{
-	"", "'fun'", "'file'", "'item'", "'pre'", "'pos'", "", "", "", "", "",
-	"')'", "'/'", "'.'", "'\\'",
+	"", "'pkg'", "'fol'", "'doc'", "'file'", "'fun'", "'pre'", "'pos'", "",
+	"", "", "", "'/'",
 }
 var symbolicNames = []string{
-	"", "FUN", "FILE", "ITEM", "PRE", "POS", "COMMENT", "ARG_NAME", "FILENAME",
-	"WORD", "NEWLINE", "CP", "FS", "DT", "ML", "WS", "ID",
+	"", "PKG", "FOL", "DOC", "FILE", "FUN", "PRE", "POS", "LINE", "FILENAME",
+	"WORD", "NEWLINE", "FS", "WS", "ID",
 }
 
 var ruleNames = []string{
-	"start", "spec", "file", "fun", "pre", "pos", "ml",
+	"start", "spec", "fol", "pkg", "doc", "file", "fun", "pre", "pos", "ln",
 }
 
 type Skele struct {
@@ -96,33 +97,34 @@ func NewSkele(input antlr.TokenStream) *Skele {
 // Skele tokens.
 const (
 	SkeleEOF      = antlr.TokenEOF
-	SkeleFUN      = 1
-	SkeleFILE     = 2
-	SkeleITEM     = 3
-	SkelePRE      = 4
-	SkelePOS      = 5
-	SkeleCOMMENT  = 6
-	SkeleARG_NAME = 7
-	SkeleFILENAME = 8
-	SkeleWORD     = 9
-	SkeleNEWLINE  = 10
-	SkeleCP       = 11
+	SkelePKG      = 1
+	SkeleFOL      = 2
+	SkeleDOC      = 3
+	SkeleFILE     = 4
+	SkeleFUN      = 5
+	SkelePRE      = 6
+	SkelePOS      = 7
+	SkeleLINE     = 8
+	SkeleFILENAME = 9
+	SkeleWORD     = 10
+	SkeleNEWLINE  = 11
 	SkeleFS       = 12
-	SkeleDT       = 13
-	SkeleML       = 14
-	SkeleWS       = 15
-	SkeleID       = 16
+	SkeleWS       = 13
+	SkeleID       = 14
 )
 
 // Skele rules.
 const (
 	SkeleRULE_start = 0
 	SkeleRULE_spec  = 1
-	SkeleRULE_file  = 2
-	SkeleRULE_fun   = 3
-	SkeleRULE_pre   = 4
-	SkeleRULE_pos   = 5
-	SkeleRULE_ml    = 6
+	SkeleRULE_fol   = 2
+	SkeleRULE_pkg   = 3
+	SkeleRULE_doc   = 4
+	SkeleRULE_file  = 5
+	SkeleRULE_fun   = 6
+	SkeleRULE_pre   = 7
+	SkeleRULE_pos   = 8
+	SkeleRULE_ln    = 9
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -232,22 +234,22 @@ func (p *Skele) Start() (localctx IStartContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(15)
+	p.SetState(21)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ok := true; ok; ok = _la == SkeleFILE {
+	for ok := true; ok; ok = _la == SkelePKG {
 		{
-			p.SetState(14)
+			p.SetState(20)
 			p.Spec()
 		}
 
-		p.SetState(17)
+		p.SetState(23)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(19)
+		p.SetState(25)
 		p.Match(SkeleEOF)
 	}
 
@@ -292,37 +294,57 @@ func NewSpecContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokin
 
 func (s *SpecContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *SpecContext) File() IFileContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFileContext)(nil)).Elem(), 0)
+func (s *SpecContext) Pkg() IPkgContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IPkgContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IFileContext)
+	return t.(IPkgContext)
 }
 
-func (s *SpecContext) AllFun() []IFunContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IFunContext)(nil)).Elem())
-	var tst = make([]IFunContext, len(ts))
+func (s *SpecContext) Fol() IFolContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFolContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFolContext)
+}
+
+func (s *SpecContext) Doc() IDocContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDocContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IDocContext)
+}
+
+func (s *SpecContext) AllFile() []IFileContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IFileContext)(nil)).Elem())
+	var tst = make([]IFileContext, len(ts))
 
 	for i, t := range ts {
 		if t != nil {
-			tst[i] = t.(IFunContext)
+			tst[i] = t.(IFileContext)
 		}
 	}
 
 	return tst
 }
 
-func (s *SpecContext) Fun(i int) IFunContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFunContext)(nil)).Elem(), i)
+func (s *SpecContext) File(i int) IFileContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFileContext)(nil)).Elem(), i)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IFunContext)
+	return t.(IFileContext)
 }
 
 func (s *SpecContext) GetRuleContext() antlr.RuleContext {
@@ -368,20 +390,393 @@ func (p *Skele) Spec() (localctx ISpecContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(21)
-		p.File()
+		p.SetState(27)
+		p.Pkg()
 	}
-	p.SetState(23)
+	p.SetState(29)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ok := true; ok; ok = _la == SkeleFUN {
+	if _la == SkeleFOL {
 		{
-			p.SetState(22)
-			p.Fun()
+			p.SetState(28)
+			p.Fol()
 		}
 
-		p.SetState(25)
+	}
+	p.SetState(32)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == SkeleDOC {
+		{
+			p.SetState(31)
+			p.Doc()
+		}
+
+	}
+	p.SetState(35)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == SkeleFILE {
+		{
+			p.SetState(34)
+			p.File()
+		}
+
+		p.SetState(37)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
+	}
+
+	return localctx
+}
+
+// IFolContext is an interface to support dynamic dispatch.
+type IFolContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsFolContext differentiates from other interfaces.
+	IsFolContext()
+}
+
+type FolContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyFolContext() *FolContext {
+	var p = new(FolContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SkeleRULE_fol
+	return p
+}
+
+func (*FolContext) IsFolContext() {}
+
+func NewFolContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *FolContext {
+	var p = new(FolContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SkeleRULE_fol
+
+	return p
+}
+
+func (s *FolContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *FolContext) FOL() antlr.TerminalNode {
+	return s.GetToken(SkeleFOL, 0)
+}
+
+func (s *FolContext) WORD() antlr.TerminalNode {
+	return s.GetToken(SkeleWORD, 0)
+}
+
+func (s *FolContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
+}
+
+func (s *FolContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *FolContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *FolContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.EnterFol(s)
+	}
+}
+
+func (s *FolContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.ExitFol(s)
+	}
+}
+
+func (p *Skele) Fol() (localctx IFolContext) {
+	localctx = NewFolContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 4, SkeleRULE_fol)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(39)
+		p.Match(SkeleFOL)
+	}
+	{
+		p.SetState(40)
+		p.Match(SkeleWORD)
+	}
+	{
+		p.SetState(41)
+		p.Match(SkeleNEWLINE)
+	}
+
+	return localctx
+}
+
+// IPkgContext is an interface to support dynamic dispatch.
+type IPkgContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsPkgContext differentiates from other interfaces.
+	IsPkgContext()
+}
+
+type PkgContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyPkgContext() *PkgContext {
+	var p = new(PkgContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SkeleRULE_pkg
+	return p
+}
+
+func (*PkgContext) IsPkgContext() {}
+
+func NewPkgContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *PkgContext {
+	var p = new(PkgContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SkeleRULE_pkg
+
+	return p
+}
+
+func (s *PkgContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *PkgContext) PKG() antlr.TerminalNode {
+	return s.GetToken(SkelePKG, 0)
+}
+
+func (s *PkgContext) WORD() antlr.TerminalNode {
+	return s.GetToken(SkeleWORD, 0)
+}
+
+func (s *PkgContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
+}
+
+func (s *PkgContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *PkgContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *PkgContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.EnterPkg(s)
+	}
+}
+
+func (s *PkgContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.ExitPkg(s)
+	}
+}
+
+func (p *Skele) Pkg() (localctx IPkgContext) {
+	localctx = NewPkgContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, SkeleRULE_pkg)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(43)
+		p.Match(SkelePKG)
+	}
+	{
+		p.SetState(44)
+		p.Match(SkeleWORD)
+	}
+	{
+		p.SetState(45)
+		p.Match(SkeleNEWLINE)
+	}
+
+	return localctx
+}
+
+// IDocContext is an interface to support dynamic dispatch.
+type IDocContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsDocContext differentiates from other interfaces.
+	IsDocContext()
+}
+
+type DocContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyDocContext() *DocContext {
+	var p = new(DocContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SkeleRULE_doc
+	return p
+}
+
+func (*DocContext) IsDocContext() {}
+
+func NewDocContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *DocContext {
+	var p = new(DocContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SkeleRULE_doc
+
+	return p
+}
+
+func (s *DocContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *DocContext) DOC() antlr.TerminalNode {
+	return s.GetToken(SkeleDOC, 0)
+}
+
+func (s *DocContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
+}
+
+func (s *DocContext) AllLn() []ILnContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*ILnContext)(nil)).Elem())
+	var tst = make([]ILnContext, len(ts))
+
+	for i, t := range ts {
+		if t != nil {
+			tst[i] = t.(ILnContext)
+		}
+	}
+
+	return tst
+}
+
+func (s *DocContext) Ln(i int) ILnContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ILnContext)(nil)).Elem(), i)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ILnContext)
+}
+
+func (s *DocContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *DocContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *DocContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.EnterDoc(s)
+	}
+}
+
+func (s *DocContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.ExitDoc(s)
+	}
+}
+
+func (p *Skele) Doc() (localctx IDocContext) {
+	localctx = NewDocContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 8, SkeleRULE_doc)
+	var _la int
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(47)
+		p.Match(SkeleDOC)
+	}
+	{
+		p.SetState(48)
+		p.Match(SkeleNEWLINE)
+	}
+	p.SetState(50)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == SkeleLINE {
+		{
+			p.SetState(49)
+			p.Ln()
+		}
+
+		p.SetState(52)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -431,20 +826,35 @@ func (s *FileContext) FILE() antlr.TerminalNode {
 	return s.GetToken(SkeleFILE, 0)
 }
 
-func (s *FileContext) WORD() antlr.TerminalNode {
-	return s.GetToken(SkeleWORD, 0)
-}
-
-func (s *FileContext) FS() antlr.TerminalNode {
-	return s.GetToken(SkeleFS, 0)
-}
-
 func (s *FileContext) FILENAME() antlr.TerminalNode {
 	return s.GetToken(SkeleFILENAME, 0)
 }
 
 func (s *FileContext) NEWLINE() antlr.TerminalNode {
 	return s.GetToken(SkeleNEWLINE, 0)
+}
+
+func (s *FileContext) AllFun() []IFunContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IFunContext)(nil)).Elem())
+	var tst = make([]IFunContext, len(ts))
+
+	for i, t := range ts {
+		if t != nil {
+			tst[i] = t.(IFunContext)
+		}
+	}
+
+	return tst
+}
+
+func (s *FileContext) Fun(i int) IFunContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFunContext)(nil)).Elem(), i)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFunContext)
 }
 
 func (s *FileContext) GetRuleContext() antlr.RuleContext {
@@ -469,7 +879,8 @@ func (s *FileContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *Skele) File() (localctx IFileContext) {
 	localctx = NewFileContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 4, SkeleRULE_file)
+	p.EnterRule(localctx, 10, SkeleRULE_file)
+	var _la int
 
 	defer func() {
 		p.ExitRule()
@@ -489,24 +900,30 @@ func (p *Skele) File() (localctx IFileContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(27)
+		p.SetState(54)
 		p.Match(SkeleFILE)
 	}
 	{
-		p.SetState(28)
-		p.Match(SkeleWORD)
-	}
-	{
-		p.SetState(29)
-		p.Match(SkeleFS)
-	}
-	{
-		p.SetState(30)
+		p.SetState(55)
 		p.Match(SkeleFILENAME)
 	}
 	{
-		p.SetState(31)
+		p.SetState(56)
 		p.Match(SkeleNEWLINE)
+	}
+	p.SetState(58)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == SkeleFUN {
+		{
+			p.SetState(57)
+			p.Fun()
+		}
+
+		p.SetState(60)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
 	}
 
 	return localctx
@@ -554,20 +971,18 @@ func (s *FunContext) FUN() antlr.TerminalNode {
 	return s.GetToken(SkeleFUN, 0)
 }
 
-func (s *FunContext) WORD() antlr.TerminalNode {
-	return s.GetToken(SkeleWORD, 0)
+func (s *FunContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
 }
 
-func (s *FunContext) ARG_NAME() antlr.TerminalNode {
-	return s.GetToken(SkeleARG_NAME, 0)
-}
+func (s *FunContext) Ln() ILnContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ILnContext)(nil)).Elem(), 0)
 
-func (s *FunContext) CP() antlr.TerminalNode {
-	return s.GetToken(SkeleCP, 0)
-}
+	if t == nil {
+		return nil
+	}
 
-func (s *FunContext) COMMENT() antlr.TerminalNode {
-	return s.GetToken(SkeleCOMMENT, 0)
+	return t.(ILnContext)
 }
 
 func (s *FunContext) Pos() IPosContext {
@@ -580,29 +995,8 @@ func (s *FunContext) Pos() IPosContext {
 	return t.(IPosContext)
 }
 
-func (s *FunContext) AllNEWLINE() []antlr.TerminalNode {
-	return s.GetTokens(SkeleNEWLINE)
-}
-
-func (s *FunContext) NEWLINE(i int) antlr.TerminalNode {
-	return s.GetToken(SkeleNEWLINE, i)
-}
-
-func (s *FunContext) AllPre() []IPreContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IPreContext)(nil)).Elem())
-	var tst = make([]IPreContext, len(ts))
-
-	for i, t := range ts {
-		if t != nil {
-			tst[i] = t.(IPreContext)
-		}
-	}
-
-	return tst
-}
-
-func (s *FunContext) Pre(i int) IPreContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IPreContext)(nil)).Elem(), i)
+func (s *FunContext) Pre() IPreContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IPreContext)(nil)).Elem(), 0)
 
 	if t == nil {
 		return nil
@@ -633,7 +1027,7 @@ func (s *FunContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *Skele) Fun() (localctx IFunContext) {
 	localctx = NewFunContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, SkeleRULE_fun)
+	p.EnterRule(localctx, 12, SkeleRULE_fun)
 	var _la int
 
 	defer func() {
@@ -654,55 +1048,30 @@ func (p *Skele) Fun() (localctx IFunContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(33)
+		p.SetState(62)
 		p.Match(SkeleFUN)
 	}
 	{
-		p.SetState(34)
-		p.Match(SkeleWORD)
+		p.SetState(63)
+		p.Match(SkeleNEWLINE)
 	}
 	{
-		p.SetState(35)
-		p.Match(SkeleARG_NAME)
+		p.SetState(64)
+		p.Ln()
 	}
-	{
-		p.SetState(36)
-		p.Match(SkeleCP)
-	}
-	{
-		p.SetState(37)
-		p.Match(SkeleCOMMENT)
-	}
-	p.SetState(39)
+	p.SetState(66)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ok := true; ok; ok = _la == SkeleNEWLINE {
+	if _la == SkelePRE {
 		{
-			p.SetState(38)
-			p.Match(SkeleNEWLINE)
-		}
-
-		p.SetState(41)
-		p.GetErrorHandler().Sync(p)
-		_la = p.GetTokenStream().LA(1)
-	}
-	p.SetState(46)
-	p.GetErrorHandler().Sync(p)
-	_la = p.GetTokenStream().LA(1)
-
-	for _la == SkelePRE {
-		{
-			p.SetState(43)
+			p.SetState(65)
 			p.Pre()
 		}
 
-		p.SetState(48)
-		p.GetErrorHandler().Sync(p)
-		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(49)
+		p.SetState(68)
 		p.Pos()
 	}
 
@@ -747,47 +1116,35 @@ func NewPreContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoking
 
 func (s *PreContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *PreContext) AllNEWLINE() []antlr.TerminalNode {
-	return s.GetTokens(SkeleNEWLINE)
-}
-
-func (s *PreContext) NEWLINE(i int) antlr.TerminalNode {
-	return s.GetToken(SkeleNEWLINE, i)
-}
-
 func (s *PreContext) PRE() antlr.TerminalNode {
 	return s.GetToken(SkelePRE, 0)
 }
 
-func (s *PreContext) WORD() antlr.TerminalNode {
-	return s.GetToken(SkeleWORD, 0)
+func (s *PreContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
 }
 
-func (s *PreContext) COMMENT() antlr.TerminalNode {
-	return s.GetToken(SkeleCOMMENT, 0)
-}
-
-func (s *PreContext) AllMl() []IMlContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IMlContext)(nil)).Elem())
-	var tst = make([]IMlContext, len(ts))
+func (s *PreContext) AllLn() []ILnContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*ILnContext)(nil)).Elem())
+	var tst = make([]ILnContext, len(ts))
 
 	for i, t := range ts {
 		if t != nil {
-			tst[i] = t.(IMlContext)
+			tst[i] = t.(ILnContext)
 		}
 	}
 
 	return tst
 }
 
-func (s *PreContext) Ml(i int) IMlContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IMlContext)(nil)).Elem(), i)
+func (s *PreContext) Ln(i int) ILnContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ILnContext)(nil)).Elem(), i)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IMlContext)
+	return t.(ILnContext)
 }
 
 func (s *PreContext) GetRuleContext() antlr.RuleContext {
@@ -812,7 +1169,8 @@ func (s *PreContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *Skele) Pre() (localctx IPreContext) {
 	localctx = NewPreContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, SkeleRULE_pre)
+	p.EnterRule(localctx, 14, SkeleRULE_pre)
+	var _la int
 
 	defer func() {
 		p.ExitRule()
@@ -830,59 +1188,28 @@ func (p *Skele) Pre() (localctx IPreContext) {
 		}
 	}()
 
-	var _alt int
-
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(61)
-	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext()) {
-	case 1:
-		{
-			p.SetState(51)
-			p.Match(SkelePRE)
-		}
-		{
-			p.SetState(52)
-			p.Match(SkeleWORD)
-		}
-		{
-			p.SetState(53)
-			p.Match(SkeleCOMMENT)
-		}
-
-	case 2:
-		{
-			p.SetState(54)
-			p.Match(SkelePRE)
-		}
-		p.SetState(57)
-		p.GetErrorHandler().Sync(p)
-		_alt = 1
-		for ok := true; ok; ok = _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
-			switch _alt {
-			case 1:
-				{
-					p.SetState(55)
-					p.Match(SkeleNEWLINE)
-				}
-				{
-					p.SetState(56)
-					p.Ml()
-				}
-
-			default:
-				panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
-			}
-
-			p.SetState(59)
-			p.GetErrorHandler().Sync(p)
-			_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 4, p.GetParserRuleContext())
-		}
-
+	{
+		p.SetState(70)
+		p.Match(SkelePRE)
 	}
 	{
-		p.SetState(63)
+		p.SetState(71)
 		p.Match(SkeleNEWLINE)
+	}
+	p.SetState(73)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == SkeleLINE {
+		{
+			p.SetState(72)
+			p.Ln()
+		}
+
+		p.SetState(75)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
 	}
 
 	return localctx
@@ -926,47 +1253,35 @@ func NewPosContext(parser antlr.Parser, parent antlr.ParserRuleContext, invoking
 
 func (s *PosContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *PosContext) AllNEWLINE() []antlr.TerminalNode {
-	return s.GetTokens(SkeleNEWLINE)
-}
-
-func (s *PosContext) NEWLINE(i int) antlr.TerminalNode {
-	return s.GetToken(SkeleNEWLINE, i)
-}
-
 func (s *PosContext) POS() antlr.TerminalNode {
 	return s.GetToken(SkelePOS, 0)
 }
 
-func (s *PosContext) WORD() antlr.TerminalNode {
-	return s.GetToken(SkeleWORD, 0)
+func (s *PosContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
 }
 
-func (s *PosContext) COMMENT() antlr.TerminalNode {
-	return s.GetToken(SkeleCOMMENT, 0)
-}
-
-func (s *PosContext) AllMl() []IMlContext {
-	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*IMlContext)(nil)).Elem())
-	var tst = make([]IMlContext, len(ts))
+func (s *PosContext) AllLn() []ILnContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*ILnContext)(nil)).Elem())
+	var tst = make([]ILnContext, len(ts))
 
 	for i, t := range ts {
 		if t != nil {
-			tst[i] = t.(IMlContext)
+			tst[i] = t.(ILnContext)
 		}
 	}
 
 	return tst
 }
 
-func (s *PosContext) Ml(i int) IMlContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IMlContext)(nil)).Elem(), i)
+func (s *PosContext) Ln(i int) ILnContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ILnContext)(nil)).Elem(), i)
 
 	if t == nil {
 		return nil
 	}
 
-	return t.(IMlContext)
+	return t.(ILnContext)
 }
 
 func (s *PosContext) GetRuleContext() antlr.RuleContext {
@@ -991,7 +1306,8 @@ func (s *PosContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *Skele) Pos() (localctx IPosContext) {
 	localctx = NewPosContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 10, SkeleRULE_pos)
+	p.EnterRule(localctx, 16, SkeleRULE_pos)
+	var _la int
 
 	defer func() {
 		p.ExitRule()
@@ -1009,137 +1325,102 @@ func (p *Skele) Pos() (localctx IPosContext) {
 		}
 	}()
 
-	var _alt int
-
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(75)
-	p.GetErrorHandler().Sync(p)
-	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 7, p.GetParserRuleContext()) {
-	case 1:
-		{
-			p.SetState(65)
-			p.Match(SkelePOS)
-		}
-		{
-			p.SetState(66)
-			p.Match(SkeleWORD)
-		}
-		{
-			p.SetState(67)
-			p.Match(SkeleCOMMENT)
-		}
-
-	case 2:
-		{
-			p.SetState(68)
-			p.Match(SkelePOS)
-		}
-		p.SetState(71)
-		p.GetErrorHandler().Sync(p)
-		_alt = 1
-		for ok := true; ok; ok = _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
-			switch _alt {
-			case 1:
-				{
-					p.SetState(69)
-					p.Match(SkeleNEWLINE)
-				}
-				{
-					p.SetState(70)
-					p.Ml()
-				}
-
-			default:
-				panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
-			}
-
-			p.SetState(73)
-			p.GetErrorHandler().Sync(p)
-			_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 6, p.GetParserRuleContext())
-		}
-
-	}
 	{
 		p.SetState(77)
+		p.Match(SkelePOS)
+	}
+	{
+		p.SetState(78)
 		p.Match(SkeleNEWLINE)
+	}
+	p.SetState(80)
+	p.GetErrorHandler().Sync(p)
+	_la = p.GetTokenStream().LA(1)
+
+	for ok := true; ok; ok = _la == SkeleLINE {
+		{
+			p.SetState(79)
+			p.Ln()
+		}
+
+		p.SetState(82)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
 	}
 
 	return localctx
 }
 
-// IMlContext is an interface to support dynamic dispatch.
-type IMlContext interface {
+// ILnContext is an interface to support dynamic dispatch.
+type ILnContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// IsMlContext differentiates from other interfaces.
-	IsMlContext()
+	// IsLnContext differentiates from other interfaces.
+	IsLnContext()
 }
 
-type MlContext struct {
+type LnContext struct {
 	*antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyMlContext() *MlContext {
-	var p = new(MlContext)
+func NewEmptyLnContext() *LnContext {
+	var p = new(LnContext)
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SkeleRULE_ml
+	p.RuleIndex = SkeleRULE_ln
 	return p
 }
 
-func (*MlContext) IsMlContext() {}
+func (*LnContext) IsLnContext() {}
 
-func NewMlContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *MlContext {
-	var p = new(MlContext)
+func NewLnContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *LnContext {
+	var p = new(LnContext)
 
 	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = SkeleRULE_ml
+	p.RuleIndex = SkeleRULE_ln
 
 	return p
 }
 
-func (s *MlContext) GetParser() antlr.Parser { return s.parser }
+func (s *LnContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *MlContext) ML() antlr.TerminalNode {
-	return s.GetToken(SkeleML, 0)
+func (s *LnContext) LINE() antlr.TerminalNode {
+	return s.GetToken(SkeleLINE, 0)
 }
 
-func (s *MlContext) WORD() antlr.TerminalNode {
-	return s.GetToken(SkeleWORD, 0)
+func (s *LnContext) NEWLINE() antlr.TerminalNode {
+	return s.GetToken(SkeleNEWLINE, 0)
 }
 
-func (s *MlContext) COMMENT() antlr.TerminalNode {
-	return s.GetToken(SkeleCOMMENT, 0)
-}
-
-func (s *MlContext) GetRuleContext() antlr.RuleContext {
+func (s *LnContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *MlContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *LnContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *MlContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *LnContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SkeleListener); ok {
-		listenerT.EnterMl(s)
+		listenerT.EnterLn(s)
 	}
 }
 
-func (s *MlContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *LnContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(SkeleListener); ok {
-		listenerT.ExitMl(s)
+		listenerT.ExitLn(s)
 	}
 }
 
-func (p *Skele) Ml() (localctx IMlContext) {
-	localctx = NewMlContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, SkeleRULE_ml)
+func (p *Skele) Ln() (localctx ILnContext) {
+	localctx = NewLnContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 18, SkeleRULE_ln)
 
 	defer func() {
 		p.ExitRule()
@@ -1159,16 +1440,12 @@ func (p *Skele) Ml() (localctx IMlContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(79)
-		p.Match(SkeleML)
+		p.SetState(84)
+		p.Match(SkeleLINE)
 	}
 	{
-		p.SetState(80)
-		p.Match(SkeleWORD)
-	}
-	{
-		p.SetState(81)
-		p.Match(SkeleCOMMENT)
+		p.SetState(85)
+		p.Match(SkeleNEWLINE)
 	}
 
 	return localctx

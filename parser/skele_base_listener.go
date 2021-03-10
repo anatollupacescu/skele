@@ -33,6 +33,24 @@ func (s *BaseSkeleListener) EnterSpec(ctx *SpecContext) {}
 // ExitSpec is called when production spec is exited.
 func (s *BaseSkeleListener) ExitSpec(ctx *SpecContext) {}
 
+// EnterFol is called when production fol is entered.
+func (s *BaseSkeleListener) EnterFol(ctx *FolContext) {}
+
+// ExitFol is called when production fol is exited.
+func (s *BaseSkeleListener) ExitFol(ctx *FolContext) {}
+
+// EnterPkg is called when production pkg is entered.
+func (s *BaseSkeleListener) EnterPkg(ctx *PkgContext) {}
+
+// ExitPkg is called when production pkg is exited.
+func (s *BaseSkeleListener) ExitPkg(ctx *PkgContext) {}
+
+// EnterDoc is called when production doc is entered.
+func (s *BaseSkeleListener) EnterDoc(ctx *DocContext) {}
+
+// ExitDoc is called when production doc is exited.
+func (s *BaseSkeleListener) ExitDoc(ctx *DocContext) {}
+
 // EnterFile is called when production file is entered.
 func (s *BaseSkeleListener) EnterFile(ctx *FileContext) {}
 
@@ -57,8 +75,8 @@ func (s *BaseSkeleListener) EnterPos(ctx *PosContext) {}
 // ExitPos is called when production pos is exited.
 func (s *BaseSkeleListener) ExitPos(ctx *PosContext) {}
 
-// EnterMl is called when production ml is entered.
-func (s *BaseSkeleListener) EnterMl(ctx *MlContext) {}
+// EnterLn is called when production ln is entered.
+func (s *BaseSkeleListener) EnterLn(ctx *LnContext) {}
 
-// ExitMl is called when production ml is exited.
-func (s *BaseSkeleListener) ExitMl(ctx *MlContext) {}
+// ExitLn is called when production ln is exited.
+func (s *BaseSkeleListener) ExitLn(ctx *LnContext) {}

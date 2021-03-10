@@ -2,15 +2,21 @@ parser grammar Skele;
 
 options { tokenVocab=SkeleLexer; }
 
-start : spec+ EOF;
+start   : spec+ EOF;
 
-spec: file fun+;
+spec    : pkg fol? doc? file+;
 
-file    : FILE WORD FS FILENAME NEWLINE;
+fol     : FOL WORD NEWLINE;
 
-fun     : FUN WORD ARG_NAME CP COMMENT NEWLINE+ pre* pos;
+pkg     : PKG WORD NEWLINE;
 
-pre     : (PRE WORD COMMENT | PRE (NEWLINE ml)+) NEWLINE;
-pos     : (POS WORD COMMENT | POS (NEWLINE ml)+) NEWLINE;
+doc     : DOC NEWLINE ln+;
 
-ml      : ML WORD COMMENT;
+file    : FILE FILENAME NEWLINE fun+;
+
+fun     : FUN NEWLINE ln pre? pos;
+
+pre     : PRE NEWLINE ln+;
+pos     : POS NEWLINE ln+;
+
+ln      : LINE NEWLINE;

@@ -1,25 +1,22 @@
 lexer grammar SkeleLexer;
 
-FUN: 'fun';
-FILE: 'file';
-ITEM: 'item';
+PKG     : 'pkg';
+FOL     : 'fol';
+DOC     : 'doc';
+FILE    : 'file';
+FUN     : 'fun';
+PRE     : 'pre';
+POS     : 'pos';
 
-PRE: 'pre';
-POS: 'pos';
+LINE : '\\' ~[\r\n]*;
 
-COMMENT : '#' ~[\r\n]*;
-ARG_NAME: '(' ~[)]*;
+FILENAME: WORD '_test.go';
 
-FILENAME: WORD '.go';
-
-WORD: (ID | '_')+;
+WORD: ID+;
 
 NEWLINE : ('\r'? '\n' | '\r')+ ;
 
-CP : ')';
 FS : '/';
-DT : '.';
-ML: '\\';
 
 WS : [ \n\t\r] -> skip;
 ID : [a-zA-Z];

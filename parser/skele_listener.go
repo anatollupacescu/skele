@@ -14,6 +14,15 @@ type SkeleListener interface {
 	// EnterSpec is called when entering the spec production.
 	EnterSpec(c *SpecContext)
 
+	// EnterFol is called when entering the fol production.
+	EnterFol(c *FolContext)
+
+	// EnterPkg is called when entering the pkg production.
+	EnterPkg(c *PkgContext)
+
+	// EnterDoc is called when entering the doc production.
+	EnterDoc(c *DocContext)
+
 	// EnterFile is called when entering the file production.
 	EnterFile(c *FileContext)
 
@@ -26,14 +35,23 @@ type SkeleListener interface {
 	// EnterPos is called when entering the pos production.
 	EnterPos(c *PosContext)
 
-	// EnterMl is called when entering the ml production.
-	EnterMl(c *MlContext)
+	// EnterLn is called when entering the ln production.
+	EnterLn(c *LnContext)
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
 	// ExitSpec is called when exiting the spec production.
 	ExitSpec(c *SpecContext)
+
+	// ExitFol is called when exiting the fol production.
+	ExitFol(c *FolContext)
+
+	// ExitPkg is called when exiting the pkg production.
+	ExitPkg(c *PkgContext)
+
+	// ExitDoc is called when exiting the doc production.
+	ExitDoc(c *DocContext)
 
 	// ExitFile is called when exiting the file production.
 	ExitFile(c *FileContext)
@@ -47,6 +65,6 @@ type SkeleListener interface {
 	// ExitPos is called when exiting the pos production.
 	ExitPos(c *PosContext)
 
-	// ExitMl is called when exiting the ml production.
-	ExitMl(c *MlContext)
+	// ExitLn is called when exiting the ln production.
+	ExitLn(c *LnContext)
 }

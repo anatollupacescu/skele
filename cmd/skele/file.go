@@ -7,7 +7,7 @@ import (
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 
-	"github.com/spirit/parser"
+	"github.com/anatollupacescu/skele/parser"
 )
 
 func (m *machine) read(name string) {
@@ -24,7 +24,7 @@ func (m *machine) read(name string) {
 func readFile(name string) string {
 	file, err := os.Open(name)
 	if err != nil {
-		log.Fatal("open file\n", err)
+		log.Fatalf("open file: %s: %v\n", name, err)
 	}
 	defer file.Close()
 	buf := new(bytes.Buffer)

@@ -1,0 +1,53 @@
+pkg list
+
+fol list
+
+doc
+    \ A list is a bag of TODO items. A collection of lists constitutes the ToDoApp.
+    \ A list can be added if the name is unique and not empty.
+    \ A list can be removed if all of its items are 'done'
+
+file list_test.go
+
+fun
+    \ add list
+pre
+    \ name too short
+    \ name not unique   \ failure to check name uniqueness
+pos
+    \ list added        \ failed to add list
+
+fun
+    \ remove list
+pre
+    \ contains pending items
+pos
+    \ list removed      \ failed to remove list
+
+pkg item
+
+doc
+    \ An item represents a TODO reminder. Contains the text and a 'done' toggle.
+    \ An item can be removed only if it's in 'done' state.
+
+file item_test.go
+
+fun
+    \ add item to list
+pre
+    \ text too short
+    \ text not unique in list   \ failed to check for uniqueness
+pos
+    \ item added                \ failed to add item
+
+fun
+    \ mark item as done
+pos
+    \ item marked as done       \ failed to mark as done
+
+fun
+    \ remove item
+pre
+    \ item is active
+pos
+    \ item removed              \ failed to remove item
