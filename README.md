@@ -13,7 +13,7 @@ go test
 ## Usage
 
 ```sh
-go get github.com/anatollupacescu/skele
+go get github.com/anatollupacescu/skele/cmd/skele
 skele def1.skl def2.skl
 ```
 
