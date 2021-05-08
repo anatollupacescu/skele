@@ -13,16 +13,16 @@ fun
     \ add list
 pre
     \ name too short
-    \ name not unique   \ failure to check name uniqueness
+    \ name not unique   \ fail to check name uniqueness
 pos
-    \ list added        \ failed to add list
+    \ list added        \ fail to add list
 
 fun
     \ remove list
 pre
     \ contains pending items
 pos
-    \ list removed      \ failed to remove list
+    \ list removed      \ fail to remove list
 
 pkg item
 
@@ -36,18 +36,18 @@ fun
     \ add item to list
 pre
     \ text too short
-    \ text not unique in list   \ failed to check for uniqueness
+    \ text not unique in list   \ fail to check for uniqueness
 pos
-    \ item added                \ failed to add item
+    \ item added                \ fail to add item
 
 fun
     \ mark item as done
 pos
-    \ item marked as done       \ failed to mark as done
+    \ item marked as done       \ fail to mark as done
 
 fun
     \ remove item
 pre
-    \ item is active
+    \ item is active            \ fail to check item status
 pos
-    \ item removed              \ failed to remove item
+    \ item removed              \ fail to remove item

@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAllInOne(t *testing.T) {
+func TestTODO(t *testing.T) {
 	var m = new(machine)
 
 	m.read("TODO.skl")
@@ -27,10 +27,10 @@ func TestAllInOne(t *testing.T) {
 	assert.Equal(t, "", m.specs[0].file[0].fun[0].pre[0].impl)
 
 	assert.Equal(t, "name not unique", m.specs[0].file[0].fun[0].pre[1].domain)
-	assert.Equal(t, "failure to check name uniqueness", m.specs[0].file[0].fun[0].pre[1].impl)
+	assert.Equal(t, "fail to check name uniqueness", m.specs[0].file[0].fun[0].pre[1].impl)
 
 	assert.Equal(t, "list added", m.specs[0].file[0].fun[0].pos[0].domain)
-	assert.Equal(t, "failed to add list", m.specs[0].file[0].fun[0].pos[0].impl)
+	assert.Equal(t, "fail to add list", m.specs[0].file[0].fun[0].pos[0].impl)
 
 	assert.Equal(t, "remove list", m.specs[0].file[0].fun[1].name)
 
@@ -38,7 +38,7 @@ func TestAllInOne(t *testing.T) {
 	assert.Equal(t, "", m.specs[0].file[0].fun[1].pre[0].impl)
 
 	assert.Equal(t, "list removed", m.specs[0].file[0].fun[1].pos[0].domain)
-	assert.Equal(t, "failed to remove list", m.specs[0].file[0].fun[1].pos[0].impl)
+	assert.Equal(t, "fail to remove list", m.specs[0].file[0].fun[1].pos[0].impl)
 
 	// item
 	assert.Equal(t, "item", m.specs[1].pkg)
@@ -53,21 +53,21 @@ func TestAllInOne(t *testing.T) {
 	assert.Equal(t, "", m.specs[1].file[0].fun[0].pre[0].impl)
 
 	assert.Equal(t, "text not unique in list", m.specs[1].file[0].fun[0].pre[1].domain)
-	assert.Equal(t, "failed to check for uniqueness", m.specs[1].file[0].fun[0].pre[1].impl)
+	assert.Equal(t, "fail to check for uniqueness", m.specs[1].file[0].fun[0].pre[1].impl)
 
 	assert.Equal(t, "item added", m.specs[1].file[0].fun[0].pos[0].domain)
-	assert.Equal(t, "failed to add item", m.specs[1].file[0].fun[0].pos[0].impl)
+	assert.Equal(t, "fail to add item", m.specs[1].file[0].fun[0].pos[0].impl)
 
 	assert.Equal(t, "mark item as done", m.specs[1].file[0].fun[1].name)
 
 	assert.Equal(t, "item marked as done", m.specs[1].file[0].fun[1].pos[0].domain)
-	assert.Equal(t, "failed to mark as done", m.specs[1].file[0].fun[1].pos[0].impl)
+	assert.Equal(t, "fail to mark as done", m.specs[1].file[0].fun[1].pos[0].impl)
 
 	assert.Equal(t, "remove item", m.specs[1].file[0].fun[2].name)
 
 	assert.Equal(t, "item is active", m.specs[1].file[0].fun[2].pre[0].domain)
-	assert.Equal(t, "", m.specs[1].file[0].fun[2].pre[0].impl)
+	assert.Equal(t, "fail to check item status", m.specs[1].file[0].fun[2].pre[0].impl)
 
 	assert.Equal(t, "item removed", m.specs[1].file[0].fun[2].pos[0].domain)
-	assert.Equal(t, "failed to remove item", m.specs[1].file[0].fun[2].pos[0].impl)
+	assert.Equal(t, "fail to remove item", m.specs[1].file[0].fun[2].pos[0].impl)
 }

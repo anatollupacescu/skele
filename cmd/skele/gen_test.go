@@ -69,7 +69,7 @@ func TestAddItemToList(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to check for uniqueness", func(t *testing.T) {
+	t.Run("given fail to check for uniqueness", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -77,7 +77,7 @@ func TestAddItemToList(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to add item", func(t *testing.T) {
+	t.Run("given fail to add item", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -88,7 +88,7 @@ func TestMarkItemAsDone(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to mark as done", func(t *testing.T) {
+	t.Run("given fail to mark as done", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -99,11 +99,15 @@ func TestRemoveItem(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
+	t.Run("given fail to check item status", func(t *testing.T) {
+		t.Run("assert error", func(t *testing.T) {
+		})
+	})
 	t.Run("given item removed", func(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to remove item", func(t *testing.T) {
+	t.Run("given fail to remove item", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -123,7 +127,7 @@ func TestAddList(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
-	t.Run("given failure to check name uniqueness", func(t *testing.T) {
+	t.Run("given fail to check name uniqueness", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -131,7 +135,7 @@ func TestAddList(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to add list", func(t *testing.T) {
+	t.Run("given fail to add list", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -146,7 +150,7 @@ func TestRemoveList(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given failed to remove list", func(t *testing.T) {
+	t.Run("given fail to remove list", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
