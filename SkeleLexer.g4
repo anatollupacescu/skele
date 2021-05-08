@@ -8,7 +8,8 @@ FUN     : 'fun';
 PRE     : 'pre';
 POS     : 'pos';
 
-LINE : '\\' ~[\r\n]*;
+LINE : '\\' ~[\r\n#]*;
+COMMENT : '#' ~[\r\n]*;
 
 FILENAME: WORD '_test.go';
 

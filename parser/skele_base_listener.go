@@ -80,3 +80,9 @@ func (s *BaseSkeleListener) EnterLn(ctx *LnContext) {}
 
 // ExitLn is called when production ln is exited.
 func (s *BaseSkeleListener) ExitLn(ctx *LnContext) {}
+
+// EnterNewln is called when production newln is entered.
+func (s *BaseSkeleListener) EnterNewln(ctx *NewlnContext) {}
+
+// ExitNewln is called when production newln is exited.
+func (s *BaseSkeleListener) ExitNewln(ctx *NewlnContext) {}

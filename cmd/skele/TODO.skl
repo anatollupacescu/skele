@@ -1,17 +1,25 @@
-pkg list
+pkg list # package declaration
 
-fol list
+# single comment
+
+fol list # folder
+
+# single comment
 
 doc
     \ A list is a bag of TODO items. A collection of lists constitutes the ToDoApp.
     \ A list can be added if the name is unique and not empty.
     \ A list can be removed if all of its items are 'done'
 
-file list_test.go
+# single comment
 
-fun
-    \ add list
-pre
+file list_test.go # file comment
+
+# single comment
+
+fun             # function declaration comment
+    \ add list  # line comment
+pre             # precondition comment
     \ name too short
     \ name not unique   \ fail to check name uniqueness
 pos

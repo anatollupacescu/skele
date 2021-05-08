@@ -38,6 +38,9 @@ type SkeleListener interface {
 	// EnterLn is called when entering the ln production.
 	EnterLn(c *LnContext)
 
+	// EnterNewln is called when entering the newln production.
+	EnterNewln(c *NewlnContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
@@ -67,4 +70,7 @@ type SkeleListener interface {
 
 	// ExitLn is called when exiting the ln production.
 	ExitLn(c *LnContext)
+
+	// ExitNewln is called when exiting the newln production.
+	ExitNewln(c *NewlnContext)
 }

@@ -6,17 +6,18 @@ start   : spec+ EOF;
 
 spec    : pkg fol? doc? file+;
 
-fol     : FOL WORD NEWLINE;
+fol     : FOL WORD newln;
 
-pkg     : PKG WORD NEWLINE;
+pkg     : PKG WORD newln;
 
-doc     : DOC NEWLINE ln+;
+doc     : DOC newln ln+;
 
-file    : FILE FILENAME NEWLINE fun+;
+file    : FILE FILENAME newln fun+;
 
-fun     : FUN NEWLINE ln pre? pos;
+fun     : FUN newln ln pre? pos;
 
-pre     : PRE NEWLINE ln+;
-pos     : POS NEWLINE ln+;
+pre     : PRE newln ln+;
+pos     : POS newln ln+;
 
-ln      : LINE NEWLINE;
+ln      : LINE newln;
+newln   : (COMMENT? NEWLINE)+;
