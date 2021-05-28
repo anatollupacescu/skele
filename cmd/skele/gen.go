@@ -35,6 +35,10 @@ func (m *machine) write() {
 		}
 		for _, file := range ms.file {
 			for _, fun := range file.fun {
+				funName := toCamelCase(fun.name)
+				if contains(spec.Funs, funName) {
+					log.Fatalf("duplicate fun declaration: %s", fun.name)
+				}
 				var pp []Prepos
 				for _, fp := range fun.pre {
 					pp = append(pp, Prepos{
@@ -63,7 +67,7 @@ func (m *machine) write() {
 					})
 				}
 				spec.Funs = append(spec.Funs, Fun{
-					Name:   toCamelCase(fun.name),
+					Name:   funName,
 					Prepos: pp,
 				})
 			}
@@ -103,6 +107,15 @@ func toCamelCase(in string) (out string) {
 	}
 
 	return
+}
+
+func contains(funs []Fun, funName string) bool {
+	for _, f := range funs {
+		if f.Name == funName {
+			return true
+		}
+	}
+	return false
 }
 
 var testfile = `package {{.Pkg}}
