@@ -1,19 +1,20 @@
 package main
 
 import (
+	"log"
 	"strings"
 
 	"github.com/anatollupacescu/skele/parser"
 )
 
 type machine struct {
-	specs []spec
+	pkgs []pkg
 }
 
-type spec struct {
-	pkg, fol string
-	doc      []string
-	file     []file
+type pkg struct {
+	name, fol string
+	doc       []string
+	file      []file
 }
 
 type file struct {
@@ -37,22 +38,22 @@ type skeleListener struct {
 }
 
 func (c *skeleListener) EnterPkg(ctx *parser.PkgContext) {
-	c.machine.specs = append(c.machine.specs, spec{
-		pkg: ctx.WORD().GetText(),
+	c.machine.pkgs = append(c.machine.pkgs, pkg{
+		name: ctx.WORD().GetText(),
 	})
 }
 
 func (c *skeleListener) EnterFol(ctx *parser.FolContext) {
-	specIndex := len(c.machine.specs) - 1
-	cs := &c.machine.specs[specIndex]
+	specIndex := len(c.machine.pkgs) - 1
+	cs := &c.machine.pkgs[specIndex]
 	if word := ctx.WORD(); word != nil {
 		cs.fol = word.GetText()
 	}
 }
 
 func (c *skeleListener) EnterDoc(ctx *parser.DocContext) {
-	specIndex := len(c.machine.specs) - 1
-	cs := &c.machine.specs[specIndex]
+	specIndex := len(c.machine.pkgs) - 1
+	cs := &c.machine.pkgs[specIndex]
 	c.sink = func(in string) {
 		in = strings.TrimLeft(in, "\\")
 		in = strings.Trim(in, " ")
@@ -66,12 +67,26 @@ func (c *skeleListener) EnterLn(ctx *parser.LnContext) {
 }
 
 func (c *skeleListener) EnterFile(ctx *parser.FileContext) {
-	specIndex := len(c.machine.specs) - 1
-	cs := &c.machine.specs[specIndex]
+	specIndex := len(c.machine.pkgs) - 1
+	cs := &c.machine.pkgs[specIndex]
 	f := file{
 		name: ctx.FILENAME().GetText(),
 	}
+
+	if containsFile(cs.file, f) {
+		log.Fatal("duplicate file: ", f.name)
+	}
+
 	cs.file = append(cs.file, f)
+}
+
+func containsFile(ff []file, f file) bool {
+	for _, ex := range ff {
+		if ex.name == f.name {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *skeleListener) EnterFun(*parser.FunContext) {
@@ -82,14 +97,27 @@ func (c *skeleListener) EnterFun(*parser.FunContext) {
 			name: in,
 		}
 
-		specIndex := len(c.machine.specs) - 1
-		cs := &c.machine.specs[specIndex]
+		specIndex := len(c.machine.pkgs) - 1
+		cs := &c.machine.pkgs[specIndex]
 
 		fileIndex := len(cs.file) - 1
 		cf := &cs.file[fileIndex]
 
+		if containsFun(cf.fun, f) {
+			log.Fatal("duplicate fun:", in)
+		}
+
 		cf.fun = append(cf.fun, f)
 	}
+}
+
+func containsFun(list []fun, f fun) bool {
+	for _, ex := range list {
+		if ex.name == f.name {
+			return true
+		}
+	}
+	return false
 }
 
 func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
@@ -98,8 +126,8 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		pp.domain = given
 		pp.impl = assert
 
-		specIndex := len(c.machine.specs) - 1
-		cs := &c.machine.specs[specIndex]
+		specIndex := len(c.machine.pkgs) - 1
+		cs := &c.machine.pkgs[specIndex]
 
 		fileIndex := len(cs.file) - 1
 		cf := &cs.file[fileIndex]
@@ -122,8 +150,8 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 			impl:   assert,
 		}
 
-		specIndex := len(c.machine.specs) - 1
-		cs := &c.machine.specs[specIndex]
+		specIndex := len(c.machine.pkgs) - 1
+		cs := &c.machine.pkgs[specIndex]
 
 		fileIndex := len(cs.file) - 1
 		cf := &cs.file[fileIndex]
@@ -139,7 +167,7 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 	}
 }
 
-func parsePreposLine(in string, sink func(_, _ string)) {
+func parsePreposLine(in string, sink func(string, string)) {
 	seg := strings.Split(in, "\\")
 
 	var lines []string

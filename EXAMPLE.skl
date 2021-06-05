@@ -19,12 +19,12 @@ pos
 fun
     \ disable item
 pos
-    \ item is disabled      \ failed to disable item
+    \ item is disabled      \ fail to disable item
 
 fun
     \ enable item
 pos
-    \ item is enabled       \ failed to enable item
+    \ item is enabled       \ fail to enable item
 
 fun
     \ validate item
@@ -74,12 +74,12 @@ pos
 fun
     \ disable recipe
 pos
-    \ recipe is disabled      \ failed to disable recipe
+    \ recipe is disabled      \ fail to disable recipe
 
 fun
     \ enable recipe
 pos
-    \ recipe is enabled       \ failed to enable recipe
+    \ recipe is enabled       \ fail to enable recipe
 
 fun
     \ validate recipe
@@ -102,15 +102,15 @@ fun
 pre
     \ quantity is negative
 pos
-    \ position updated          \ failure to update quantity
+    \ position updated          \ fail to update quantity
 
 fun
     \ extract
 pre
     \ quantity is negative
-    \ recipe not found                  \ failure to get recipe
+    \ recipe not found                  \ fail to get recipe
     \ recipe is invalid
-    \ item not present in stock         \ failure to get stock item
+    \ item not present in stock         \ fail to get stock item
     \ not enough stock for item
 pos
-    \ position updated                  \ failure to update position quantity
+    \ position updated                  \ fail to update position quantity

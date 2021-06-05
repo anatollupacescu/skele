@@ -8,8 +8,8 @@ import (
 	"text/template"
 )
 
-type Spec struct {
-	Pkg  string
+type Pkg struct {
+	Name string
 	Funs []Fun
 }
 
@@ -25,20 +25,17 @@ type Prepos struct {
 var templt = template.Must(template.New("testfile").Parse(testfile))
 
 func (m *machine) write() {
-	for _, ms := range m.specs {
-		spec := Spec{
-			Pkg: ms.pkg,
+	for _, ms := range m.pkgs {
+		pkg := Pkg{
+			Name: ms.name,
 		}
 		folder := ms.fol
 		if folder == "" {
-			folder = ms.pkg
+			folder = ms.name
 		}
+		// write each file
 		for _, file := range ms.file {
 			for _, fun := range file.fun {
-				funName := toCamelCase(fun.name)
-				if contains(spec.Funs, funName) {
-					log.Fatalf("duplicate fun declaration: %s", fun.name)
-				}
 				var pp []Prepos
 				for _, fp := range fun.pre {
 					pp = append(pp, Prepos{
@@ -66,7 +63,8 @@ func (m *machine) write() {
 						Assert: "error",
 					})
 				}
-				spec.Funs = append(spec.Funs, Fun{
+				funName := toCamelCase(fun.name)
+				pkg.Funs = append(pkg.Funs, Fun{
 					Name:   funName,
 					Prepos: pp,
 				})
@@ -80,22 +78,22 @@ func (m *machine) write() {
 			if err != nil {
 				log.Fatalf("create %s: %v", filename, err)
 			}
-
-			if err := templt.Execute(outFile, spec); err != nil {
+			if err := templt.Execute(outFile, pkg); err != nil {
 				log.Fatalf("execute: %v", err)
 			}
+			pkg.Funs = nil // start over
 		}
-		if len(ms.doc) == 0 {
-			continue
-		}
-		docPath := folder + "/doc.go"
-		docFile, err := os.Create(docPath)
-		if err != nil {
-			log.Fatalf("create file %s: %v", docPath, err)
-		}
-		contents := "// " + strings.Join(ms.doc, "\n// ") + "\n\n" + "package " + ms.pkg + "\n"
-		if _, err := io.WriteString(docFile, contents); err != nil {
-			log.Fatalf("write doc.go for %s", ms.pkg)
+		// write doc
+		if len(ms.doc) > 0 {
+			docPath := folder + "/doc.go"
+			docFile, err := os.Create(docPath)
+			if err != nil {
+				log.Fatalf("create file %s: %v", docPath, err)
+			}
+			contents := "// " + strings.Join(ms.doc, "\n// ") + "\n\n" + "package " + ms.name + "\n"
+			if _, err := io.WriteString(docFile, contents); err != nil {
+				log.Fatalf("write doc.go for %s", ms.name)
+			}
 		}
 	}
 }
@@ -109,16 +107,7 @@ func toCamelCase(in string) (out string) {
 	return
 }
 
-func contains(funs []Fun, funName string) bool {
-	for _, f := range funs {
-		if f.Name == funName {
-			return true
-		}
-	}
-	return false
-}
-
-var testfile = `package {{.Pkg}}
+var testfile = `package {{.Name}}
 
 import "testing"
 {{ range .Funs }}

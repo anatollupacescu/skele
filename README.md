@@ -25,7 +25,7 @@ A `fun` statement defines a function name, followed by zero or more `pre` (preco
 
 A precondition is a stop rule - if the precondition body evaluates to true - it means the flow of the program stops.
 
-Two preconditions can be defined the same line. The first one represents a real life invariant and the second one represents failure for a technical reason.
+Two preconditions can be defined the same line. The first one represents a real life invariant and the second one represents a failure that occurred for a technical reason.
 
 The last one is a set of one or more `pos` (postconditions) representing side efects.
 
@@ -36,4 +36,3 @@ If a `pos` statement contains only one postcondition it means it's a return stat
 ## TODO
 
 * add support for generating other types of testing frameworks (goconvey, js mocha etc.)
-* add check for duplicate function names within the same package
