@@ -4,7 +4,7 @@ options { tokenVocab=SkeleLexer; }
 
 start   : spec+ EOF;
 
-spec    : pkg fol? doc? file+;
+spec    : (pkg fol? doc) | (pkg fol? doc? file+);
 
 fol     : FOL WORD newln;
 

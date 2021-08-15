@@ -16,48 +16,51 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 104,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 112,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
 	9, 13, 3, 2, 6, 2, 28, 10, 2, 13, 2, 14, 2, 29, 3, 2, 3, 2, 3, 3, 3, 3,
-	5, 3, 36, 10, 3, 3, 3, 5, 3, 39, 10, 3, 3, 3, 6, 3, 42, 10, 3, 13, 3, 14,
-	3, 43, 3, 4, 3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6,
-	6, 6, 57, 10, 6, 13, 6, 14, 6, 58, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 65, 10,
-	7, 13, 7, 14, 7, 66, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 73, 10, 8, 3, 8, 3,
-	8, 3, 9, 3, 9, 3, 9, 6, 9, 80, 10, 9, 13, 9, 14, 9, 81, 3, 10, 3, 10, 3,
-	10, 6, 10, 87, 10, 10, 13, 10, 14, 10, 88, 3, 11, 3, 11, 3, 11, 3, 12,
-	5, 12, 95, 10, 12, 3, 12, 6, 12, 98, 10, 12, 13, 12, 14, 12, 99, 3, 13,
-	3, 13, 3, 13, 2, 2, 14, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 2,
-	2, 2, 102, 2, 27, 3, 2, 2, 2, 4, 33, 3, 2, 2, 2, 6, 45, 3, 2, 2, 2, 8,
-	49, 3, 2, 2, 2, 10, 53, 3, 2, 2, 2, 12, 60, 3, 2, 2, 2, 14, 68, 3, 2, 2,
-	2, 16, 76, 3, 2, 2, 2, 18, 83, 3, 2, 2, 2, 20, 90, 3, 2, 2, 2, 22, 97,
-	3, 2, 2, 2, 24, 101, 3, 2, 2, 2, 26, 28, 5, 4, 3, 2, 27, 26, 3, 2, 2, 2,
-	28, 29, 3, 2, 2, 2, 29, 27, 3, 2, 2, 2, 29, 30, 3, 2, 2, 2, 30, 31, 3,
-	2, 2, 2, 31, 32, 7, 2, 2, 3, 32, 3, 3, 2, 2, 2, 33, 35, 5, 8, 5, 2, 34,
-	36, 5, 6, 4, 2, 35, 34, 3, 2, 2, 2, 35, 36, 3, 2, 2, 2, 36, 38, 3, 2, 2,
-	2, 37, 39, 5, 10, 6, 2, 38, 37, 3, 2, 2, 2, 38, 39, 3, 2, 2, 2, 39, 41,
-	3, 2, 2, 2, 40, 42, 5, 12, 7, 2, 41, 40, 3, 2, 2, 2, 42, 43, 3, 2, 2, 2,
-	43, 41, 3, 2, 2, 2, 43, 44, 3, 2, 2, 2, 44, 5, 3, 2, 2, 2, 45, 46, 7, 4,
-	2, 2, 46, 47, 7, 13, 2, 2, 47, 48, 5, 22, 12, 2, 48, 7, 3, 2, 2, 2, 49,
-	50, 7, 3, 2, 2, 50, 51, 7, 13, 2, 2, 51, 52, 5, 22, 12, 2, 52, 9, 3, 2,
-	2, 2, 53, 54, 7, 5, 2, 2, 54, 56, 5, 22, 12, 2, 55, 57, 5, 20, 11, 2, 56,
-	55, 3, 2, 2, 2, 57, 58, 3, 2, 2, 2, 58, 56, 3, 2, 2, 2, 58, 59, 3, 2, 2,
-	2, 59, 11, 3, 2, 2, 2, 60, 61, 7, 6, 2, 2, 61, 62, 7, 12, 2, 2, 62, 64,
-	5, 22, 12, 2, 63, 65, 5, 14, 8, 2, 64, 63, 3, 2, 2, 2, 65, 66, 3, 2, 2,
-	2, 66, 64, 3, 2, 2, 2, 66, 67, 3, 2, 2, 2, 67, 13, 3, 2, 2, 2, 68, 69,
-	7, 7, 2, 2, 69, 70, 5, 22, 12, 2, 70, 72, 5, 20, 11, 2, 71, 73, 5, 16,
-	9, 2, 72, 71, 3, 2, 2, 2, 72, 73, 3, 2, 2, 2, 73, 74, 3, 2, 2, 2, 74, 75,
-	5, 18, 10, 2, 75, 15, 3, 2, 2, 2, 76, 77, 7, 8, 2, 2, 77, 79, 5, 22, 12,
-	2, 78, 80, 5, 20, 11, 2, 79, 78, 3, 2, 2, 2, 80, 81, 3, 2, 2, 2, 81, 79,
-	3, 2, 2, 2, 81, 82, 3, 2, 2, 2, 82, 17, 3, 2, 2, 2, 83, 84, 7, 9, 2, 2,
-	84, 86, 5, 22, 12, 2, 85, 87, 5, 20, 11, 2, 86, 85, 3, 2, 2, 2, 87, 88,
-	3, 2, 2, 2, 88, 86, 3, 2, 2, 2, 88, 89, 3, 2, 2, 2, 89, 19, 3, 2, 2, 2,
-	90, 91, 7, 10, 2, 2, 91, 92, 5, 22, 12, 2, 92, 21, 3, 2, 2, 2, 93, 95,
-	5, 24, 13, 2, 94, 93, 3, 2, 2, 2, 94, 95, 3, 2, 2, 2, 95, 96, 3, 2, 2,
-	2, 96, 98, 7, 14, 2, 2, 97, 94, 3, 2, 2, 2, 98, 99, 3, 2, 2, 2, 99, 97,
-	3, 2, 2, 2, 99, 100, 3, 2, 2, 2, 100, 23, 3, 2, 2, 2, 101, 102, 7, 11,
-	2, 2, 102, 25, 3, 2, 2, 2, 13, 29, 35, 38, 43, 58, 66, 72, 81, 88, 94,
-	99,
+	5, 3, 36, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 42, 10, 3, 3, 3, 5, 3, 45,
+	10, 3, 3, 3, 6, 3, 48, 10, 3, 13, 3, 14, 3, 49, 5, 3, 52, 10, 3, 3, 4,
+	3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6, 6, 6, 65, 10,
+	6, 13, 6, 14, 6, 66, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 73, 10, 7, 13, 7, 14,
+	7, 74, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 81, 10, 8, 3, 8, 3, 8, 3, 9, 3, 9,
+	3, 9, 6, 9, 88, 10, 9, 13, 9, 14, 9, 89, 3, 10, 3, 10, 3, 10, 6, 10, 95,
+	10, 10, 13, 10, 14, 10, 96, 3, 11, 3, 11, 3, 11, 3, 12, 5, 12, 103, 10,
+	12, 3, 12, 6, 12, 106, 10, 12, 13, 12, 14, 12, 107, 3, 13, 3, 13, 3, 13,
+	2, 2, 14, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 2, 2, 2, 112, 2,
+	27, 3, 2, 2, 2, 4, 51, 3, 2, 2, 2, 6, 53, 3, 2, 2, 2, 8, 57, 3, 2, 2, 2,
+	10, 61, 3, 2, 2, 2, 12, 68, 3, 2, 2, 2, 14, 76, 3, 2, 2, 2, 16, 84, 3,
+	2, 2, 2, 18, 91, 3, 2, 2, 2, 20, 98, 3, 2, 2, 2, 22, 105, 3, 2, 2, 2, 24,
+	109, 3, 2, 2, 2, 26, 28, 5, 4, 3, 2, 27, 26, 3, 2, 2, 2, 28, 29, 3, 2,
+	2, 2, 29, 27, 3, 2, 2, 2, 29, 30, 3, 2, 2, 2, 30, 31, 3, 2, 2, 2, 31, 32,
+	7, 2, 2, 3, 32, 3, 3, 2, 2, 2, 33, 35, 5, 8, 5, 2, 34, 36, 5, 6, 4, 2,
+	35, 34, 3, 2, 2, 2, 35, 36, 3, 2, 2, 2, 36, 37, 3, 2, 2, 2, 37, 38, 5,
+	10, 6, 2, 38, 52, 3, 2, 2, 2, 39, 41, 5, 8, 5, 2, 40, 42, 5, 6, 4, 2, 41,
+	40, 3, 2, 2, 2, 41, 42, 3, 2, 2, 2, 42, 44, 3, 2, 2, 2, 43, 45, 5, 10,
+	6, 2, 44, 43, 3, 2, 2, 2, 44, 45, 3, 2, 2, 2, 45, 47, 3, 2, 2, 2, 46, 48,
+	5, 12, 7, 2, 47, 46, 3, 2, 2, 2, 48, 49, 3, 2, 2, 2, 49, 47, 3, 2, 2, 2,
+	49, 50, 3, 2, 2, 2, 50, 52, 3, 2, 2, 2, 51, 33, 3, 2, 2, 2, 51, 39, 3,
+	2, 2, 2, 52, 5, 3, 2, 2, 2, 53, 54, 7, 4, 2, 2, 54, 55, 7, 13, 2, 2, 55,
+	56, 5, 22, 12, 2, 56, 7, 3, 2, 2, 2, 57, 58, 7, 3, 2, 2, 58, 59, 7, 13,
+	2, 2, 59, 60, 5, 22, 12, 2, 60, 9, 3, 2, 2, 2, 61, 62, 7, 5, 2, 2, 62,
+	64, 5, 22, 12, 2, 63, 65, 5, 20, 11, 2, 64, 63, 3, 2, 2, 2, 65, 66, 3,
+	2, 2, 2, 66, 64, 3, 2, 2, 2, 66, 67, 3, 2, 2, 2, 67, 11, 3, 2, 2, 2, 68,
+	69, 7, 6, 2, 2, 69, 70, 7, 12, 2, 2, 70, 72, 5, 22, 12, 2, 71, 73, 5, 14,
+	8, 2, 72, 71, 3, 2, 2, 2, 73, 74, 3, 2, 2, 2, 74, 72, 3, 2, 2, 2, 74, 75,
+	3, 2, 2, 2, 75, 13, 3, 2, 2, 2, 76, 77, 7, 7, 2, 2, 77, 78, 5, 22, 12,
+	2, 78, 80, 5, 20, 11, 2, 79, 81, 5, 16, 9, 2, 80, 79, 3, 2, 2, 2, 80, 81,
+	3, 2, 2, 2, 81, 82, 3, 2, 2, 2, 82, 83, 5, 18, 10, 2, 83, 15, 3, 2, 2,
+	2, 84, 85, 7, 8, 2, 2, 85, 87, 5, 22, 12, 2, 86, 88, 5, 20, 11, 2, 87,
+	86, 3, 2, 2, 2, 88, 89, 3, 2, 2, 2, 89, 87, 3, 2, 2, 2, 89, 90, 3, 2, 2,
+	2, 90, 17, 3, 2, 2, 2, 91, 92, 7, 9, 2, 2, 92, 94, 5, 22, 12, 2, 93, 95,
+	5, 20, 11, 2, 94, 93, 3, 2, 2, 2, 95, 96, 3, 2, 2, 2, 96, 94, 3, 2, 2,
+	2, 96, 97, 3, 2, 2, 2, 97, 19, 3, 2, 2, 2, 98, 99, 7, 10, 2, 2, 99, 100,
+	5, 22, 12, 2, 100, 21, 3, 2, 2, 2, 101, 103, 5, 24, 13, 2, 102, 101, 3,
+	2, 2, 2, 102, 103, 3, 2, 2, 2, 103, 104, 3, 2, 2, 2, 104, 106, 7, 14, 2,
+	2, 105, 102, 3, 2, 2, 2, 106, 107, 3, 2, 2, 2, 107, 105, 3, 2, 2, 2, 107,
+	108, 3, 2, 2, 2, 108, 23, 3, 2, 2, 2, 109, 110, 7, 11, 2, 2, 110, 25, 3,
+	2, 2, 2, 15, 29, 35, 41, 44, 49, 51, 66, 74, 80, 89, 96, 102, 107,
 }
 var literalNames = []string{
 	"", "'pkg'", "'fol'", "'doc'", "'file'", "'fun'", "'pre'", "'pos'", "",
@@ -315,16 +318,6 @@ func (s *SpecContext) Pkg() IPkgContext {
 	return t.(IPkgContext)
 }
 
-func (s *SpecContext) Fol() IFolContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFolContext)(nil)).Elem(), 0)
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IFolContext)
-}
-
 func (s *SpecContext) Doc() IDocContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDocContext)(nil)).Elem(), 0)
 
@@ -333,6 +326,16 @@ func (s *SpecContext) Doc() IDocContext {
 	}
 
 	return t.(IDocContext)
+}
+
+func (s *SpecContext) Fol() IFolContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IFolContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IFolContext)
 }
 
 func (s *SpecContext) AllFile() []IFileContext {
@@ -399,46 +402,74 @@ func (p *Skele) Spec() (localctx ISpecContext) {
 		}
 	}()
 
-	p.EnterOuterAlt(localctx, 1)
-	{
-		p.SetState(31)
-		p.Pkg()
-	}
-	p.SetState(33)
+	p.SetState(49)
 	p.GetErrorHandler().Sync(p)
-	_la = p.GetTokenStream().LA(1)
-
-	if _la == SkeleFOL {
+	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext()) {
+	case 1:
+		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(32)
-			p.Fol()
+			p.SetState(31)
+			p.Pkg()
 		}
+		p.SetState(33)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
 
-	}
-	p.SetState(36)
-	p.GetErrorHandler().Sync(p)
-	_la = p.GetTokenStream().LA(1)
+		if _la == SkeleFOL {
+			{
+				p.SetState(32)
+				p.Fol()
+			}
 
-	if _la == SkeleDOC {
+		}
 		{
 			p.SetState(35)
 			p.Doc()
 		}
 
-	}
-	p.SetState(39)
-	p.GetErrorHandler().Sync(p)
-	_la = p.GetTokenStream().LA(1)
-
-	for ok := true; ok; ok = _la == SkeleFILE {
+	case 2:
+		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(38)
-			p.File()
+			p.SetState(37)
+			p.Pkg()
 		}
-
-		p.SetState(41)
+		p.SetState(39)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
+
+		if _la == SkeleFOL {
+			{
+				p.SetState(38)
+				p.Fol()
+			}
+
+		}
+		p.SetState(42)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
+
+		if _la == SkeleDOC {
+			{
+				p.SetState(41)
+				p.Doc()
+			}
+
+		}
+		p.SetState(45)
+		p.GetErrorHandler().Sync(p)
+		_la = p.GetTokenStream().LA(1)
+
+		for ok := true; ok; ok = _la == SkeleFILE {
+			{
+				p.SetState(44)
+				p.File()
+			}
+
+			p.SetState(47)
+			p.GetErrorHandler().Sync(p)
+			_la = p.GetTokenStream().LA(1)
+		}
+
 	}
 
 	return localctx
@@ -542,15 +573,15 @@ func (p *Skele) Fol() (localctx IFolContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(43)
+		p.SetState(51)
 		p.Match(SkeleFOL)
 	}
 	{
-		p.SetState(44)
+		p.SetState(52)
 		p.Match(SkeleWORD)
 	}
 	{
-		p.SetState(45)
+		p.SetState(53)
 		p.Newln()
 	}
 
@@ -655,15 +686,15 @@ func (p *Skele) Pkg() (localctx IPkgContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(47)
+		p.SetState(55)
 		p.Match(SkelePKG)
 	}
 	{
-		p.SetState(48)
+		p.SetState(56)
 		p.Match(SkeleWORD)
 	}
 	{
-		p.SetState(49)
+		p.SetState(57)
 		p.Newln()
 	}
 
@@ -788,24 +819,24 @@ func (p *Skele) Doc() (localctx IDocContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(51)
+		p.SetState(59)
 		p.Match(SkeleDOC)
 	}
 	{
-		p.SetState(52)
+		p.SetState(60)
 		p.Newln()
 	}
-	p.SetState(54)
+	p.SetState(62)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(53)
+			p.SetState(61)
 			p.Ln()
 		}
 
-		p.SetState(56)
+		p.SetState(64)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -935,28 +966,28 @@ func (p *Skele) File() (localctx IFileContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(58)
+		p.SetState(66)
 		p.Match(SkeleFILE)
 	}
 	{
-		p.SetState(59)
+		p.SetState(67)
 		p.Match(SkeleFILENAME)
 	}
 	{
-		p.SetState(60)
+		p.SetState(68)
 		p.Newln()
 	}
-	p.SetState(62)
+	p.SetState(70)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleFUN {
 		{
-			p.SetState(61)
+			p.SetState(69)
 			p.Fun()
 		}
 
-		p.SetState(64)
+		p.SetState(72)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1089,30 +1120,30 @@ func (p *Skele) Fun() (localctx IFunContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(66)
+		p.SetState(74)
 		p.Match(SkeleFUN)
 	}
 	{
-		p.SetState(67)
+		p.SetState(75)
 		p.Newln()
 	}
 	{
-		p.SetState(68)
+		p.SetState(76)
 		p.Ln()
 	}
-	p.SetState(70)
+	p.SetState(78)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == SkelePRE {
 		{
-			p.SetState(69)
+			p.SetState(77)
 			p.Pre()
 		}
 
 	}
 	{
-		p.SetState(72)
+		p.SetState(80)
 		p.Pos()
 	}
 
@@ -1237,24 +1268,24 @@ func (p *Skele) Pre() (localctx IPreContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(74)
+		p.SetState(82)
 		p.Match(SkelePRE)
 	}
 	{
-		p.SetState(75)
+		p.SetState(83)
 		p.Newln()
 	}
-	p.SetState(77)
+	p.SetState(85)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(76)
+			p.SetState(84)
 			p.Ln()
 		}
 
-		p.SetState(79)
+		p.SetState(87)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1380,24 +1411,24 @@ func (p *Skele) Pos() (localctx IPosContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(81)
+		p.SetState(89)
 		p.Match(SkelePOS)
 	}
 	{
-		p.SetState(82)
+		p.SetState(90)
 		p.Newln()
 	}
-	p.SetState(84)
+	p.SetState(92)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(83)
+			p.SetState(91)
 			p.Ln()
 		}
 
-		p.SetState(86)
+		p.SetState(94)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1499,11 +1530,11 @@ func (p *Skele) Ln() (localctx ILnContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(88)
+		p.SetState(96)
 		p.Match(SkeleLINE)
 	}
 	{
-		p.SetState(89)
+		p.SetState(97)
 		p.Newln()
 	}
 
@@ -1621,28 +1652,28 @@ func (p *Skele) Newln() (localctx INewlnContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(95)
+	p.SetState(103)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleCOMMENT || _la == SkeleNEWLINE {
-		p.SetState(92)
+		p.SetState(100)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 
 		if _la == SkeleCOMMENT {
 			{
-				p.SetState(91)
+				p.SetState(99)
 				p.Comment()
 			}
 
 		}
 		{
-			p.SetState(94)
+			p.SetState(102)
 			p.Match(SkeleNEWLINE)
 		}
 
-		p.SetState(97)
+		p.SetState(105)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1734,7 +1765,7 @@ func (p *Skele) Comment() (localctx ICommentContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(99)
+		p.SetState(107)
 		p.Match(SkeleCOMMENT)
 	}
 
