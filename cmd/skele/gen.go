@@ -29,10 +29,6 @@ func (m *machine) write() {
 		pkg := Pkg{
 			Name: ms.name,
 		}
-		folder := ms.fol
-		if folder == "" {
-			folder = ms.name
-		}
 		// write each file
 		for _, file := range ms.file {
 			for _, fun := range file.fun {
@@ -70,7 +66,8 @@ func (m *machine) write() {
 				})
 			}
 			filename := file.name
-			if folder != "" {
+			folder := ms.fol
+			if ms.fol != "" {
 				_ = os.Mkdir(folder, 0755)
 				filename = folder + "/" + filename
 			}
@@ -85,6 +82,10 @@ func (m *machine) write() {
 		}
 		// write doc
 		if len(ms.doc) > 0 {
+			folder := "."
+			if ms.fol != "" {
+				folder = ms.fol
+			}
 			docPath := folder + "/doc.go"
 			docFile, err := os.Create(docPath)
 			if err != nil {

@@ -16,14 +16,13 @@ func TestGen(t *testing.T) {
 	m.write()
 
 	defer removeFile("list")
-	defer removeFile("item")
 
-	item, err := os.Open("item/item_test.go")
+	item, err := os.Open("item_test.go")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	defer removeFile("item/item_test.go")
+	defer removeFile("item_test.go")
 
 	data, err := ioutil.ReadAll(item)
 	if err != nil {
@@ -47,7 +46,7 @@ func TestGen(t *testing.T) {
 	assert.Equal(t, listFileContents, string(data))
 
 	defer removeFile("list/doc.go")
-	defer removeFile("item/doc.go")
+	defer removeFile("doc.go")
 }
 
 func removeFile(path string) {
