@@ -20,4 +20,6 @@ pre     : PRE newln ln+;
 pos     : POS newln ln+;
 
 ln      : LINE newln;
-newln   : (COMMENT? NEWLINE)+;
+newln   : (comment? NEWLINE)+;
+
+comment : COMMENT;

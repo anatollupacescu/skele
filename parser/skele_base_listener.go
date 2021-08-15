@@ -86,3 +86,9 @@ func (s *BaseSkeleListener) EnterNewln(ctx *NewlnContext) {}
 
 // ExitNewln is called when production newln is exited.
 func (s *BaseSkeleListener) ExitNewln(ctx *NewlnContext) {}
+
+// EnterComment is called when production comment is entered.
+func (s *BaseSkeleListener) EnterComment(ctx *CommentContext) {}
+
+// ExitComment is called when production comment is exited.
+func (s *BaseSkeleListener) ExitComment(ctx *CommentContext) {}

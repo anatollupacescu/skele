@@ -41,6 +41,9 @@ type SkeleListener interface {
 	// EnterNewln is called when entering the newln production.
 	EnterNewln(c *NewlnContext)
 
+	// EnterComment is called when entering the comment production.
+	EnterComment(c *CommentContext)
+
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
 
@@ -73,4 +76,7 @@ type SkeleListener interface {
 
 	// ExitNewln is called when exiting the newln production.
 	ExitNewln(c *NewlnContext)
+
+	// ExitComment is called when exiting the comment production.
+	ExitComment(c *CommentContext)
 }

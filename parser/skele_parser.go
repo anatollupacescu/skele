@@ -16,46 +16,48 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 100,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 17, 104,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
-	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 3, 2,
-	6, 2, 26, 10, 2, 13, 2, 14, 2, 27, 3, 2, 3, 2, 3, 3, 3, 3, 5, 3, 34, 10,
-	3, 3, 3, 5, 3, 37, 10, 3, 3, 3, 6, 3, 40, 10, 3, 13, 3, 14, 3, 41, 3, 4,
-	3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6, 6, 6, 55, 10,
-	6, 13, 6, 14, 6, 56, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 63, 10, 7, 13, 7, 14,
-	7, 64, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 71, 10, 8, 3, 8, 3, 8, 3, 9, 3, 9,
-	3, 9, 6, 9, 78, 10, 9, 13, 9, 14, 9, 79, 3, 10, 3, 10, 3, 10, 6, 10, 85,
-	10, 10, 13, 10, 14, 10, 86, 3, 11, 3, 11, 3, 11, 3, 12, 5, 12, 93, 10,
-	12, 3, 12, 6, 12, 96, 10, 12, 13, 12, 14, 12, 97, 3, 12, 2, 2, 13, 2, 4,
-	6, 8, 10, 12, 14, 16, 18, 20, 22, 2, 2, 2, 99, 2, 25, 3, 2, 2, 2, 4, 31,
-	3, 2, 2, 2, 6, 43, 3, 2, 2, 2, 8, 47, 3, 2, 2, 2, 10, 51, 3, 2, 2, 2, 12,
-	58, 3, 2, 2, 2, 14, 66, 3, 2, 2, 2, 16, 74, 3, 2, 2, 2, 18, 81, 3, 2, 2,
-	2, 20, 88, 3, 2, 2, 2, 22, 95, 3, 2, 2, 2, 24, 26, 5, 4, 3, 2, 25, 24,
-	3, 2, 2, 2, 26, 27, 3, 2, 2, 2, 27, 25, 3, 2, 2, 2, 27, 28, 3, 2, 2, 2,
-	28, 29, 3, 2, 2, 2, 29, 30, 7, 2, 2, 3, 30, 3, 3, 2, 2, 2, 31, 33, 5, 8,
-	5, 2, 32, 34, 5, 6, 4, 2, 33, 32, 3, 2, 2, 2, 33, 34, 3, 2, 2, 2, 34, 36,
-	3, 2, 2, 2, 35, 37, 5, 10, 6, 2, 36, 35, 3, 2, 2, 2, 36, 37, 3, 2, 2, 2,
-	37, 39, 3, 2, 2, 2, 38, 40, 5, 12, 7, 2, 39, 38, 3, 2, 2, 2, 40, 41, 3,
-	2, 2, 2, 41, 39, 3, 2, 2, 2, 41, 42, 3, 2, 2, 2, 42, 5, 3, 2, 2, 2, 43,
-	44, 7, 4, 2, 2, 44, 45, 7, 13, 2, 2, 45, 46, 5, 22, 12, 2, 46, 7, 3, 2,
-	2, 2, 47, 48, 7, 3, 2, 2, 48, 49, 7, 13, 2, 2, 49, 50, 5, 22, 12, 2, 50,
-	9, 3, 2, 2, 2, 51, 52, 7, 5, 2, 2, 52, 54, 5, 22, 12, 2, 53, 55, 5, 20,
-	11, 2, 54, 53, 3, 2, 2, 2, 55, 56, 3, 2, 2, 2, 56, 54, 3, 2, 2, 2, 56,
-	57, 3, 2, 2, 2, 57, 11, 3, 2, 2, 2, 58, 59, 7, 6, 2, 2, 59, 60, 7, 12,
-	2, 2, 60, 62, 5, 22, 12, 2, 61, 63, 5, 14, 8, 2, 62, 61, 3, 2, 2, 2, 63,
-	64, 3, 2, 2, 2, 64, 62, 3, 2, 2, 2, 64, 65, 3, 2, 2, 2, 65, 13, 3, 2, 2,
-	2, 66, 67, 7, 7, 2, 2, 67, 68, 5, 22, 12, 2, 68, 70, 5, 20, 11, 2, 69,
-	71, 5, 16, 9, 2, 70, 69, 3, 2, 2, 2, 70, 71, 3, 2, 2, 2, 71, 72, 3, 2,
-	2, 2, 72, 73, 5, 18, 10, 2, 73, 15, 3, 2, 2, 2, 74, 75, 7, 8, 2, 2, 75,
-	77, 5, 22, 12, 2, 76, 78, 5, 20, 11, 2, 77, 76, 3, 2, 2, 2, 78, 79, 3,
-	2, 2, 2, 79, 77, 3, 2, 2, 2, 79, 80, 3, 2, 2, 2, 80, 17, 3, 2, 2, 2, 81,
-	82, 7, 9, 2, 2, 82, 84, 5, 22, 12, 2, 83, 85, 5, 20, 11, 2, 84, 83, 3,
-	2, 2, 2, 85, 86, 3, 2, 2, 2, 86, 84, 3, 2, 2, 2, 86, 87, 3, 2, 2, 2, 87,
-	19, 3, 2, 2, 2, 88, 89, 7, 10, 2, 2, 89, 90, 5, 22, 12, 2, 90, 21, 3, 2,
-	2, 2, 91, 93, 7, 11, 2, 2, 92, 91, 3, 2, 2, 2, 92, 93, 3, 2, 2, 2, 93,
-	94, 3, 2, 2, 2, 94, 96, 7, 14, 2, 2, 95, 92, 3, 2, 2, 2, 96, 97, 3, 2,
-	2, 2, 97, 95, 3, 2, 2, 2, 97, 98, 3, 2, 2, 2, 98, 23, 3, 2, 2, 2, 13, 27,
-	33, 36, 41, 56, 64, 70, 79, 86, 92, 97,
+	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
+	9, 13, 3, 2, 6, 2, 28, 10, 2, 13, 2, 14, 2, 29, 3, 2, 3, 2, 3, 3, 3, 3,
+	5, 3, 36, 10, 3, 3, 3, 5, 3, 39, 10, 3, 3, 3, 6, 3, 42, 10, 3, 13, 3, 14,
+	3, 43, 3, 4, 3, 4, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6,
+	6, 6, 57, 10, 6, 13, 6, 14, 6, 58, 3, 7, 3, 7, 3, 7, 3, 7, 6, 7, 65, 10,
+	7, 13, 7, 14, 7, 66, 3, 8, 3, 8, 3, 8, 3, 8, 5, 8, 73, 10, 8, 3, 8, 3,
+	8, 3, 9, 3, 9, 3, 9, 6, 9, 80, 10, 9, 13, 9, 14, 9, 81, 3, 10, 3, 10, 3,
+	10, 6, 10, 87, 10, 10, 13, 10, 14, 10, 88, 3, 11, 3, 11, 3, 11, 3, 12,
+	5, 12, 95, 10, 12, 3, 12, 6, 12, 98, 10, 12, 13, 12, 14, 12, 99, 3, 13,
+	3, 13, 3, 13, 2, 2, 14, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 2,
+	2, 2, 102, 2, 27, 3, 2, 2, 2, 4, 33, 3, 2, 2, 2, 6, 45, 3, 2, 2, 2, 8,
+	49, 3, 2, 2, 2, 10, 53, 3, 2, 2, 2, 12, 60, 3, 2, 2, 2, 14, 68, 3, 2, 2,
+	2, 16, 76, 3, 2, 2, 2, 18, 83, 3, 2, 2, 2, 20, 90, 3, 2, 2, 2, 22, 97,
+	3, 2, 2, 2, 24, 101, 3, 2, 2, 2, 26, 28, 5, 4, 3, 2, 27, 26, 3, 2, 2, 2,
+	28, 29, 3, 2, 2, 2, 29, 27, 3, 2, 2, 2, 29, 30, 3, 2, 2, 2, 30, 31, 3,
+	2, 2, 2, 31, 32, 7, 2, 2, 3, 32, 3, 3, 2, 2, 2, 33, 35, 5, 8, 5, 2, 34,
+	36, 5, 6, 4, 2, 35, 34, 3, 2, 2, 2, 35, 36, 3, 2, 2, 2, 36, 38, 3, 2, 2,
+	2, 37, 39, 5, 10, 6, 2, 38, 37, 3, 2, 2, 2, 38, 39, 3, 2, 2, 2, 39, 41,
+	3, 2, 2, 2, 40, 42, 5, 12, 7, 2, 41, 40, 3, 2, 2, 2, 42, 43, 3, 2, 2, 2,
+	43, 41, 3, 2, 2, 2, 43, 44, 3, 2, 2, 2, 44, 5, 3, 2, 2, 2, 45, 46, 7, 4,
+	2, 2, 46, 47, 7, 13, 2, 2, 47, 48, 5, 22, 12, 2, 48, 7, 3, 2, 2, 2, 49,
+	50, 7, 3, 2, 2, 50, 51, 7, 13, 2, 2, 51, 52, 5, 22, 12, 2, 52, 9, 3, 2,
+	2, 2, 53, 54, 7, 5, 2, 2, 54, 56, 5, 22, 12, 2, 55, 57, 5, 20, 11, 2, 56,
+	55, 3, 2, 2, 2, 57, 58, 3, 2, 2, 2, 58, 56, 3, 2, 2, 2, 58, 59, 3, 2, 2,
+	2, 59, 11, 3, 2, 2, 2, 60, 61, 7, 6, 2, 2, 61, 62, 7, 12, 2, 2, 62, 64,
+	5, 22, 12, 2, 63, 65, 5, 14, 8, 2, 64, 63, 3, 2, 2, 2, 65, 66, 3, 2, 2,
+	2, 66, 64, 3, 2, 2, 2, 66, 67, 3, 2, 2, 2, 67, 13, 3, 2, 2, 2, 68, 69,
+	7, 7, 2, 2, 69, 70, 5, 22, 12, 2, 70, 72, 5, 20, 11, 2, 71, 73, 5, 16,
+	9, 2, 72, 71, 3, 2, 2, 2, 72, 73, 3, 2, 2, 2, 73, 74, 3, 2, 2, 2, 74, 75,
+	5, 18, 10, 2, 75, 15, 3, 2, 2, 2, 76, 77, 7, 8, 2, 2, 77, 79, 5, 22, 12,
+	2, 78, 80, 5, 20, 11, 2, 79, 78, 3, 2, 2, 2, 80, 81, 3, 2, 2, 2, 81, 79,
+	3, 2, 2, 2, 81, 82, 3, 2, 2, 2, 82, 17, 3, 2, 2, 2, 83, 84, 7, 9, 2, 2,
+	84, 86, 5, 22, 12, 2, 85, 87, 5, 20, 11, 2, 86, 85, 3, 2, 2, 2, 87, 88,
+	3, 2, 2, 2, 88, 86, 3, 2, 2, 2, 88, 89, 3, 2, 2, 2, 89, 19, 3, 2, 2, 2,
+	90, 91, 7, 10, 2, 2, 91, 92, 5, 22, 12, 2, 92, 21, 3, 2, 2, 2, 93, 95,
+	5, 24, 13, 2, 94, 93, 3, 2, 2, 2, 94, 95, 3, 2, 2, 2, 95, 96, 3, 2, 2,
+	2, 96, 98, 7, 14, 2, 2, 97, 94, 3, 2, 2, 2, 98, 99, 3, 2, 2, 2, 99, 97,
+	3, 2, 2, 2, 99, 100, 3, 2, 2, 2, 100, 23, 3, 2, 2, 2, 101, 102, 7, 11,
+	2, 2, 102, 25, 3, 2, 2, 2, 13, 29, 35, 38, 43, 58, 66, 72, 81, 88, 94,
+	99,
 }
 var literalNames = []string{
 	"", "'pkg'", "'fol'", "'doc'", "'file'", "'fun'", "'pre'", "'pos'", "",
@@ -68,7 +70,7 @@ var symbolicNames = []string{
 
 var ruleNames = []string{
 	"start", "spec", "fol", "pkg", "doc", "file", "fun", "pre", "pos", "ln",
-	"newln",
+	"newln", "comment",
 }
 
 type Skele struct {
@@ -122,17 +124,18 @@ const (
 
 // Skele rules.
 const (
-	SkeleRULE_start = 0
-	SkeleRULE_spec  = 1
-	SkeleRULE_fol   = 2
-	SkeleRULE_pkg   = 3
-	SkeleRULE_doc   = 4
-	SkeleRULE_file  = 5
-	SkeleRULE_fun   = 6
-	SkeleRULE_pre   = 7
-	SkeleRULE_pos   = 8
-	SkeleRULE_ln    = 9
-	SkeleRULE_newln = 10
+	SkeleRULE_start   = 0
+	SkeleRULE_spec    = 1
+	SkeleRULE_fol     = 2
+	SkeleRULE_pkg     = 3
+	SkeleRULE_doc     = 4
+	SkeleRULE_file    = 5
+	SkeleRULE_fun     = 6
+	SkeleRULE_pre     = 7
+	SkeleRULE_pos     = 8
+	SkeleRULE_ln      = 9
+	SkeleRULE_newln   = 10
+	SkeleRULE_comment = 11
 )
 
 // IStartContext is an interface to support dynamic dispatch.
@@ -242,22 +245,22 @@ func (p *Skele) Start() (localctx IStartContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(23)
+	p.SetState(25)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkelePKG {
 		{
-			p.SetState(22)
+			p.SetState(24)
 			p.Spec()
 		}
 
-		p.SetState(25)
+		p.SetState(27)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(27)
+		p.SetState(29)
 		p.Match(SkeleEOF)
 	}
 
@@ -398,42 +401,42 @@ func (p *Skele) Spec() (localctx ISpecContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(29)
+		p.SetState(31)
 		p.Pkg()
 	}
-	p.SetState(31)
+	p.SetState(33)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == SkeleFOL {
 		{
-			p.SetState(30)
+			p.SetState(32)
 			p.Fol()
 		}
 
 	}
-	p.SetState(34)
+	p.SetState(36)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == SkeleDOC {
 		{
-			p.SetState(33)
+			p.SetState(35)
 			p.Doc()
 		}
 
 	}
-	p.SetState(37)
+	p.SetState(39)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleFILE {
 		{
-			p.SetState(36)
+			p.SetState(38)
 			p.File()
 		}
 
-		p.SetState(39)
+		p.SetState(41)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -539,15 +542,15 @@ func (p *Skele) Fol() (localctx IFolContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(41)
+		p.SetState(43)
 		p.Match(SkeleFOL)
 	}
 	{
-		p.SetState(42)
+		p.SetState(44)
 		p.Match(SkeleWORD)
 	}
 	{
-		p.SetState(43)
+		p.SetState(45)
 		p.Newln()
 	}
 
@@ -652,15 +655,15 @@ func (p *Skele) Pkg() (localctx IPkgContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(45)
+		p.SetState(47)
 		p.Match(SkelePKG)
 	}
 	{
-		p.SetState(46)
+		p.SetState(48)
 		p.Match(SkeleWORD)
 	}
 	{
-		p.SetState(47)
+		p.SetState(49)
 		p.Newln()
 	}
 
@@ -785,24 +788,24 @@ func (p *Skele) Doc() (localctx IDocContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(49)
+		p.SetState(51)
 		p.Match(SkeleDOC)
 	}
 	{
-		p.SetState(50)
+		p.SetState(52)
 		p.Newln()
 	}
-	p.SetState(52)
+	p.SetState(54)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(51)
+			p.SetState(53)
 			p.Ln()
 		}
 
-		p.SetState(54)
+		p.SetState(56)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -932,28 +935,28 @@ func (p *Skele) File() (localctx IFileContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(56)
+		p.SetState(58)
 		p.Match(SkeleFILE)
 	}
 	{
-		p.SetState(57)
+		p.SetState(59)
 		p.Match(SkeleFILENAME)
 	}
 	{
-		p.SetState(58)
+		p.SetState(60)
 		p.Newln()
 	}
-	p.SetState(60)
+	p.SetState(62)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleFUN {
 		{
-			p.SetState(59)
+			p.SetState(61)
 			p.Fun()
 		}
 
-		p.SetState(62)
+		p.SetState(64)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1086,30 +1089,30 @@ func (p *Skele) Fun() (localctx IFunContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(64)
+		p.SetState(66)
 		p.Match(SkeleFUN)
 	}
 	{
-		p.SetState(65)
+		p.SetState(67)
 		p.Newln()
 	}
 	{
-		p.SetState(66)
+		p.SetState(68)
 		p.Ln()
 	}
-	p.SetState(68)
+	p.SetState(70)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	if _la == SkelePRE {
 		{
-			p.SetState(67)
+			p.SetState(69)
 			p.Pre()
 		}
 
 	}
 	{
-		p.SetState(70)
+		p.SetState(72)
 		p.Pos()
 	}
 
@@ -1234,24 +1237,24 @@ func (p *Skele) Pre() (localctx IPreContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(72)
+		p.SetState(74)
 		p.Match(SkelePRE)
 	}
 	{
-		p.SetState(73)
+		p.SetState(75)
 		p.Newln()
 	}
-	p.SetState(75)
+	p.SetState(77)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(74)
+			p.SetState(76)
 			p.Ln()
 		}
 
-		p.SetState(77)
+		p.SetState(79)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1377,24 +1380,24 @@ func (p *Skele) Pos() (localctx IPosContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(79)
+		p.SetState(81)
 		p.Match(SkelePOS)
 	}
 	{
-		p.SetState(80)
+		p.SetState(82)
 		p.Newln()
 	}
-	p.SetState(82)
+	p.SetState(84)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleLINE {
 		{
-			p.SetState(81)
+			p.SetState(83)
 			p.Ln()
 		}
 
-		p.SetState(84)
+		p.SetState(86)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -1496,11 +1499,11 @@ func (p *Skele) Ln() (localctx ILnContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(86)
+		p.SetState(88)
 		p.Match(SkeleLINE)
 	}
 	{
-		p.SetState(87)
+		p.SetState(89)
 		p.Newln()
 	}
 
@@ -1553,12 +1556,27 @@ func (s *NewlnContext) NEWLINE(i int) antlr.TerminalNode {
 	return s.GetToken(SkeleNEWLINE, i)
 }
 
-func (s *NewlnContext) AllCOMMENT() []antlr.TerminalNode {
-	return s.GetTokens(SkeleCOMMENT)
+func (s *NewlnContext) AllComment() []ICommentContext {
+	var ts = s.GetTypedRuleContexts(reflect.TypeOf((*ICommentContext)(nil)).Elem())
+	var tst = make([]ICommentContext, len(ts))
+
+	for i, t := range ts {
+		if t != nil {
+			tst[i] = t.(ICommentContext)
+		}
+	}
+
+	return tst
 }
 
-func (s *NewlnContext) COMMENT(i int) antlr.TerminalNode {
-	return s.GetToken(SkeleCOMMENT, i)
+func (s *NewlnContext) Comment(i int) ICommentContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ICommentContext)(nil)).Elem(), i)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ICommentContext)
 }
 
 func (s *NewlnContext) GetRuleContext() antlr.RuleContext {
@@ -1603,30 +1621,121 @@ func (p *Skele) Newln() (localctx INewlnContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(93)
+	p.SetState(95)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
 	for ok := true; ok; ok = _la == SkeleCOMMENT || _la == SkeleNEWLINE {
-		p.SetState(90)
+		p.SetState(92)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 
 		if _la == SkeleCOMMENT {
 			{
-				p.SetState(89)
-				p.Match(SkeleCOMMENT)
+				p.SetState(91)
+				p.Comment()
 			}
 
 		}
 		{
-			p.SetState(92)
+			p.SetState(94)
 			p.Match(SkeleNEWLINE)
 		}
 
-		p.SetState(95)
+		p.SetState(97)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
+	}
+
+	return localctx
+}
+
+// ICommentContext is an interface to support dynamic dispatch.
+type ICommentContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsCommentContext differentiates from other interfaces.
+	IsCommentContext()
+}
+
+type CommentContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyCommentContext() *CommentContext {
+	var p = new(CommentContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SkeleRULE_comment
+	return p
+}
+
+func (*CommentContext) IsCommentContext() {}
+
+func NewCommentContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *CommentContext {
+	var p = new(CommentContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SkeleRULE_comment
+
+	return p
+}
+
+func (s *CommentContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *CommentContext) COMMENT() antlr.TerminalNode {
+	return s.GetToken(SkeleCOMMENT, 0)
+}
+
+func (s *CommentContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *CommentContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *CommentContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.EnterComment(s)
+	}
+}
+
+func (s *CommentContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SkeleListener); ok {
+		listenerT.ExitComment(s)
+	}
+}
+
+func (p *Skele) Comment() (localctx ICommentContext) {
+	localctx = NewCommentContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 22, SkeleRULE_comment)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(99)
+		p.Match(SkeleCOMMENT)
 	}
 
 	return localctx

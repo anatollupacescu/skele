@@ -11,7 +11,7 @@ POS     : 'pos';
 LINE : '\\' ~[\r\n#]*;
 COMMENT : '#' ~[\r\n]*;
 
-FILENAME: ID (ID | [0-9])+ '_test.go';
+FILENAME: ID (ID | [0-9] | '_')+ '_test.go';
 
 WORD: ID+;
 
