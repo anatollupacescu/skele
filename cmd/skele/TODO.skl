@@ -7,9 +7,8 @@ fol list # folder
 # single comment
 
 doc
-    \ A list is a bag of TODO items. A collection of lists constitutes the ToDoApp.
-    \ A list can be added if the name is unique and not empty.
-    \ A list can be removed if all of its items are 'done'
+    \ A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.
+    \ A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'
 
 # single comment
 
@@ -17,16 +16,16 @@ file list_test.go # file comment
 
 # single comment
 
-fun             # function declaration comment
-    \ add list  # line comment
-pre             # precondition comment
+fun                     # function declaration comment
+    \ add list          # <add>
+pre                     # precondition comment
     \ name too short
     \ name not unique   \ fail to check name uniqueness
 pos
     \ list added        \ fail to add list
 
 fun
-    \ remove list
+    \ remove list       # <+list:add>
 pre
     \ contains pending items
 pos
@@ -35,13 +34,13 @@ pos
 pkg item
 
 doc
-    \ An item represents a TODO reminder. Contains the text and a 'done' toggle.
-    \ An item can be removed only if it's in 'done' state.
+    \ An item represents a TODO reminder comprised of a text and a status.
+    \ An item can be removed only if it's in 'done' status.
 
 file item_test.go
 
 fun
-    \ add item to list
+    \ add item to list          # <add> <+list:add> we can only add items to an active list
 pre
     \ text too short
     \ text not unique in list   \ fail to check for uniqueness
@@ -49,12 +48,12 @@ pos
     \ item added                \ fail to add item
 
 fun
-    \ mark item as done
+    \ mark item as done         # <done> <+item.add>
 pos
     \ item marked as done       \ fail to mark as done
 
 fun
-    \ remove item
+    \ remove item               # <+item.done>
 pre
     \ item is active            \ fail to check item status
 pos

@@ -15,9 +15,8 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "list", m.pkgs[0].name)
 	assert.Equal(t, "list", m.pkgs[0].fol)
 
-	assert.Equal(t, "A list is a bag of TODO items. A collection of lists constitutes the ToDoApp.", m.pkgs[0].doc[0])
-	assert.Equal(t, "A list can be added if the name is unique and not empty.", m.pkgs[0].doc[1])
-	assert.Equal(t, "A list can be removed if all of its items are 'done'", m.pkgs[0].doc[2])
+	assert.Equal(t, "A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.", m.pkgs[0].doc[0])
+	assert.Equal(t, "A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'", m.pkgs[0].doc[1])
 
 	assert.Equal(t, "list_test.go", m.pkgs[0].file[0].name)
 
@@ -45,8 +44,8 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "", m.pkgs[1].fol)
 	assert.Equal(t, "item_test.go", m.pkgs[1].file[0].name)
 
-	assert.Equal(t, "An item represents a TODO reminder. Contains the text and a 'done' toggle.", m.pkgs[1].doc[0])
-	assert.Equal(t, "An item can be removed only if it's in 'done' state.", m.pkgs[1].doc[1])
+	assert.Equal(t, "An item represents a TODO reminder comprised of a text and a status.", m.pkgs[1].doc[0])
+	assert.Equal(t, "An item can be removed only if it's in 'done' status.", m.pkgs[1].doc[1])
 
 	assert.Equal(t, "add item to list", m.pkgs[1].file[0].fun[0].name)
 	assert.Equal(t, "text too short", m.pkgs[1].file[0].fun[0].pre[0].domain)
