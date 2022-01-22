@@ -12,49 +12,64 @@ doc
 
 # single comment
 
-file list_test.go # file comment
+file list_test.go       # file comment
 
 # single comment
 
-fun                     # function declaration comment
-    \ add list          # <add>
-pre                     # precondition comment
-    \ name too short
-    \ name not unique   \ fail to check name uniqueness
+fsm
+    \ list
+states
+    \ new
+    \ done
+    \ removed
+
+fun                         # function declaration comment
+    \ add list              # $fsm{list=new} $fsm{item=old} function name comment
+pre                         # precondition comment
+    \ name invalid          # $tc{name is too short}
+                            # $tc{name starts with a number}
+    \ name not unique   \ failure to check name uniqueness
 pos
-    \ list added        \ fail to add list
+    \ list added        \ failure to add list       # $fsm{list->new}
 
 fun
-    \ remove list       # <+list:add>
+    \ remove list                                   # $fsm{list=new}
 pre
-    \ contains pending items
+    \ contains pending items                        # $fsm{item=done}
 pos
-    \ list removed      \ fail to remove list
+    \ list removed      \ failure to remove list    # $fsm{list->removed}
 
 pkg item
 
 doc
     \ An item represents a TODO reminder comprised of a text and a status.
-    \ An item can be removed only if it's in 'done' status.
+    \ An active item can be marked as 'done' and only after it has been marked it can be removed.
 
 file item_test.go
 
+fsm
+    \ item
+states
+    \ new
+    \ done
+    \ removed
+
 fun
-    \ add item to list          # <add> <+list:add> we can only add items to an active list
+    \ add item to list                                          # $fsm{list=new} we can only add items to an existent list
 pre
     \ text too short
-    \ text not unique in list   \ fail to check for uniqueness
+    \ text not unique in list   \ failure to check for uniqueness
 pos
-    \ item added                \ fail to add item
+    \ item added                \ failure to add item           # $fsm{item->new}
 
 fun
-    \ mark item as done         # <done> <+item.add>
+    \ mark item as done                                         # $fsm{item=new}
 pos
-    \ item marked as done       \ fail to mark as done
+    \ item marked as done       \ failure to mark as done       # $fsm{item->done}
 
 fun
-    \ remove item               # <+item.done>
+    \ remove item                                               # $fsm{item=done}
 pre
-    \ item is active            \ fail to check item status
+    \ item is active            \ failure to check item status
 pos
-    \ item removed              \ fail to remove item
+    \ item removed              \ failure to remove item        # $fsm{item->removed}

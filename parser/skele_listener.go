@@ -14,6 +14,12 @@ type SkeleListener interface {
 	// EnterSpec is called when entering the spec production.
 	EnterSpec(c *SpecContext)
 
+	// EnterFsm is called when entering the fsm production.
+	EnterFsm(c *FsmContext)
+
+	// EnterSts is called when entering the sts production.
+	EnterSts(c *StsContext)
+
 	// EnterFol is called when entering the fol production.
 	EnterFol(c *FolContext)
 
@@ -49,6 +55,12 @@ type SkeleListener interface {
 
 	// ExitSpec is called when exiting the spec production.
 	ExitSpec(c *SpecContext)
+
+	// ExitFsm is called when exiting the fsm production.
+	ExitFsm(c *FsmContext)
+
+	// ExitSts is called when exiting the sts production.
+	ExitSts(c *StsContext)
 
 	// ExitFol is called when exiting the fol production.
 	ExitFol(c *FolContext)

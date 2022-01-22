@@ -8,7 +8,7 @@ func main() {
 		return
 	}
 
-	var m = new(machine)
+	m := new(machine)
 
 	for _, file := range os.Args[1:] {
 		m.read(file)

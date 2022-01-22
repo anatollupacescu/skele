@@ -68,7 +68,7 @@ func (m *machine) write() {
 			filename := file.name
 			folder := ms.fol
 			if ms.fol != "" {
-				_ = os.Mkdir(folder, 0755)
+				_ = os.Mkdir(folder, 0o755)
 				filename = folder + "/" + filename
 			}
 			outFile, err := os.Create(filename)
@@ -93,7 +93,7 @@ func (m *machine) write() {
 			}
 			contents := "// " + strings.Join(ms.doc, "\n// ") + "\n\n" + "package " + ms.name + "\n"
 			if _, err := io.WriteString(docFile, contents); err != nil {
-				log.Fatalf("write doc.go for %s", ms.name)
+				log.Fatalf("write doc.go for package %s", pkg.Name)
 			}
 		}
 	}

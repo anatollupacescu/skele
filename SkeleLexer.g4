@@ -7,6 +7,8 @@ FILE    : 'file';
 FUN     : 'fun';
 PRE     : 'pre';
 POS     : 'pos';
+FSM     : 'fsm';
+STS     : 'states';
 
 LINE : '\\' ~[\r\n#]*;
 COMMENT : '#' ~[\r\n]*;

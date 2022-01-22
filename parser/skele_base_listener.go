@@ -33,6 +33,18 @@ func (s *BaseSkeleListener) EnterSpec(ctx *SpecContext) {}
 // ExitSpec is called when production spec is exited.
 func (s *BaseSkeleListener) ExitSpec(ctx *SpecContext) {}
 
+// EnterFsm is called when production fsm is entered.
+func (s *BaseSkeleListener) EnterFsm(ctx *FsmContext) {}
+
+// ExitFsm is called when production fsm is exited.
+func (s *BaseSkeleListener) ExitFsm(ctx *FsmContext) {}
+
+// EnterSts is called when production sts is entered.
+func (s *BaseSkeleListener) EnterSts(ctx *StsContext) {}
+
+// ExitSts is called when production sts is exited.
+func (s *BaseSkeleListener) ExitSts(ctx *StsContext) {}
+
 // EnterFol is called when production fol is entered.
 func (s *BaseSkeleListener) EnterFol(ctx *FolContext) {}
 

@@ -10,7 +10,7 @@ import (
 )
 
 func TestGen(t *testing.T) {
-	var m = new(machine)
+	m := new(machine)
 
 	m.read("TODO.skl")
 	m.write()
@@ -118,7 +118,7 @@ var listFileContents = `package list
 import "testing"
 
 func TestAddList(t *testing.T) { 
-	t.Run("given name too short", func(t *testing.T) {
+	t.Run("given name invalid", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
