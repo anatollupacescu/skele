@@ -68,7 +68,7 @@ func TestAddItemToList(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to check for uniqueness", func(t *testing.T) {
+	t.Run("given failure to check for uniqueness", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -76,7 +76,7 @@ func TestAddItemToList(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to add item", func(t *testing.T) {
+	t.Run("given failure to add item", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -87,7 +87,7 @@ func TestMarkItemAsDone(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to mark as done", func(t *testing.T) {
+	t.Run("given failure to mark as done", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -98,7 +98,7 @@ func TestRemoveItem(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to check item status", func(t *testing.T) {
+	t.Run("given failure to check item status", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -106,7 +106,7 @@ func TestRemoveItem(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to remove item", func(t *testing.T) {
+	t.Run("given failure to remove item", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -119,6 +119,8 @@ import "testing"
 
 func TestAddList(t *testing.T) { 
 	t.Run("given name invalid", func(t *testing.T) {
+		// name is too short, assert name invalid
+		// name starts with a number, assert error
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -126,15 +128,20 @@ func TestAddList(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to check name uniqueness", func(t *testing.T) {
+	t.Run("given failure to check name uniqueness", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
 	t.Run("given list added", func(t *testing.T) {
+		// assert list can not be found, assert list added
+		// assert list is in the thrash bin, assert success
+		// assert list is out of sight, assert ok
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to add list", func(t *testing.T) {
+	t.Run("given failure to add list", func(t *testing.T) {
+		// one explosion, assert one loud bang
+		// one bang, assert error
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})
@@ -149,7 +156,7 @@ func TestRemoveList(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
 	})
-	t.Run("given fail to remove list", func(t *testing.T) {
+	t.Run("given failure to remove list", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})

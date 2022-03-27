@@ -29,18 +29,9 @@ func (p *pkg) currentFile() *file {
 	return &p.file[lastFileIndex]
 }
 
-func (p *pkg) currentFsm() *fsm {
-	lastfsmIndex := len(p.fsm) - 1
-	return &p.fsm[lastfsmIndex]
-}
-
 type fsm struct {
 	name   string
 	states []string
-}
-
-func (f *fsm) add(in map[string]string) {
-	log.Println(in)
 }
 
 type file struct {
@@ -81,12 +72,22 @@ func (f *fun) condition(from, to string) {
 }
 
 type prepos struct {
-	fsm          []edge
-	domain, impl string
+	fsm        []edge
+	tcE        []string
+	tcS        []string
+	succ, fail string
 }
 
-func (p *prepos) condition(from, to string) { // it's `condition` for `pre`
+func (p *prepos) condition(from, to string) { // it is `condition` for `pre`
 	p.transition(from, to) // but `transition` for `pos`
+}
+
+func (p *prepos) errTestCase(text string) {
+	p.tcE = append(p.tcE, text)
+}
+
+func (p *prepos) okTestCase(text string) {
+	p.tcS = append(p.tcS, text)
 }
 
 func (p *prepos) transition(from, to string) {
@@ -109,6 +110,7 @@ type skeleListener struct {
 	*parser.BaseSkeleListener
 	sink    func(trimmable)
 	fsmSink func(string, string)
+	tcSink  func(trimmable)
 }
 
 func (c *skeleListener) EnterPkg(ctx *parser.PkgContext) {
@@ -203,8 +205,8 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 	cf := c.machine.currentPackage().currentFile().currentFun()
 	adapter := func(given, assert string) {
 		pp := prepos{
-			domain: given,
-			impl:   assert,
+			succ: given,
+			fail: assert,
 		}
 
 		cf.pre = append(cf.pre, pp)
@@ -218,13 +220,22 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		pre := cf.currentPre()
 		pre.condition(name, state)
 	}
+
+	c.tcSink = func(s trimmable) {
+		ts := s.trim()
+		pre := cf.currentPre()
+		if !strings.Contains(ts, "assert") {
+			ts += ", assert error"
+		}
+		pre.errTestCase(ts)
+	}
 }
 
 func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 	adapter := func(given, assert string) {
 		pp := prepos{
-			domain: given,
-			impl:   assert,
+			succ: given,
+			fail: assert,
 		}
 
 		fn := c.machine.currentPackage().currentFile().currentFun()
@@ -234,6 +245,26 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 	c.sink = func(in trimmable) {
 		parsePreposLine(in.trim(), adapter)
 	}
+
+	c.tcSink = func(s trimmable) {
+		ts := s.trim()
+		pos := c.machine.currentPackage().currentFile().currentFun().currentPos()
+		if isSuccess(pos.succ, ts) {
+			pos.okTestCase(ts)
+			return
+		}
+
+		pos.errTestCase(ts)
+	}
+}
+
+func isSuccess(pos, s string) bool {
+	if strings.HasSuffix(s, pos) ||
+		strings.HasSuffix(s, "assert success") ||
+		strings.HasSuffix(s, "assert ok") {
+		return true
+	}
+	return false
 }
 
 func (c *skeleListener) EnterLn(ctx *parser.LnContext) {
@@ -242,18 +273,29 @@ func (c *skeleListener) EnterLn(ctx *parser.LnContext) {
 }
 
 var (
-	fsmReg = regexp.MustCompile(`\$fsm\{(?P<name>\w+)((?P<op>(=))|(?P<arr>(->)))(?P<state>\w+)\}`)
-	names  = fsmReg.SubexpNames()
+	fsmReg   = regexp.MustCompile(`fsm\{(?P<name>\w+)((?P<op>(=))|(?P<arr>(->)))(?P<state>\w+)\}`)
+	tcReg    = regexp.MustCompile(`tc\{(?P<text>(\w+(,* +\w+)*))\}`)
+	fsmNames = fsmReg.SubexpNames()
+	tcNames  = tcReg.SubexpNames()
 )
 
 func (c *skeleListener) EnterComment(ctx *parser.CommentContext) {
 	commentText := ctx.COMMENT().GetText()
 
+	for _, submatches := range tcReg.FindAllStringSubmatch(commentText, -1) {
+		results := make(map[string]string, len(submatches))
+		for i, name := range submatches {
+			results[tcNames[i]] = name
+		}
+		txt := results["text"]
+		c.tcSink(trimmable(txt))
+	}
+
 	// search for `fsm` declaration in the comment text
 	for _, submatches := range fsmReg.FindAllStringSubmatch(commentText, -1) {
 		results := make(map[string]string, len(submatches))
 		for i, name := range submatches {
-			results[names[i]] = name
+			results[fsmNames[i]] = name
 		}
 
 		name, state := results["name"], results["state"]
@@ -280,13 +322,13 @@ func parsePreposLine(in string, sink func(string, string)) {
 		lines = append(lines, strings.Trim(s, " "))
 	}
 
-	var domain, impl string
+	var success, fail string
 
-	domain = lines[0]
+	success = lines[0]
 
 	if len(lines) > 1 { // the technical failure precondition is optional
-		impl = lines[1]
+		fail = lines[1]
 	}
 
-	sink(domain, impl)
+	sink(success, fail)
 }

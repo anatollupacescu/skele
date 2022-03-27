@@ -12,7 +12,7 @@ doc
 
 # single comment
 
-file list_test.go       # file comment
+file list_test.go           # file comment
 
 # single comment
 
@@ -24,20 +24,24 @@ states
     \ removed
 
 fun                         # function declaration comment
-    \ add list              # $fsm{list=new} $fsm{item=old} function name comment
+    \ add list              # fsm{list=new} fsm{item=old} function name comment
 pre                         # precondition comment
-    \ name invalid          # $tc{name is too short}
-                            # $tc{name starts with a number}
+    \ name invalid          # tc{name is too short, assert name invalid}
+                            # tc{name starts with a number}
     \ name not unique   \ failure to check name uniqueness
 pos
-    \ list added        \ failure to add list       # $fsm{list->new}
+    \ list added        \ failure to add list       # fsm{list->new} tc{one explosion, assert one loud bang}
+                                                    # tc{one bang, assert error}
+                                                    # tc{assert list can not be found, assert list added}
+                                                    # tc{assert list is in the thrash bin, assert success}
+                                                    # tc{assert list is out of sight, assert ok}
 
 fun
-    \ remove list                                   # $fsm{list=new}
+    \ remove list                                   # fsm{list=new}
 pre
-    \ contains pending items                        # $fsm{item=done}
+    \ contains pending items                        # fsm{item=done}
 pos
-    \ list removed      \ failure to remove list    # $fsm{list->removed}
+    \ list removed      \ failure to remove list    # fsm{list->removed}
 
 pkg item
 
@@ -55,21 +59,21 @@ states
     \ removed
 
 fun
-    \ add item to list                                          # $fsm{list=new} we can only add items to an existent list
+    \ add item to list                                          # fsm{list=new} we can only add items to an existent list
 pre
     \ text too short
     \ text not unique in list   \ failure to check for uniqueness
 pos
-    \ item added                \ failure to add item           # $fsm{item->new}
+    \ item added                \ failure to add item           # fsm{item->new}
 
 fun
-    \ mark item as done                                         # $fsm{item=new}
+    \ mark item as done                                         # fsm{item=new}
 pos
-    \ item marked as done       \ failure to mark as done       # $fsm{item->done}
+    \ item marked as done       \ failure to mark as done       # fsm{item->done}
 
 fun
-    \ remove item                                               # $fsm{item=done}
+    \ remove item                                               # fsm{item=done}
 pre
     \ item is active            \ failure to check item status
 pos
-    \ item removed              \ failure to remove item        # $fsm{item->removed}
+    \ item removed              \ failure to remove item        # fsm{item->removed}

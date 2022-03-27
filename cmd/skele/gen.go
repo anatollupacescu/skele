@@ -20,6 +20,7 @@ type Fun struct {
 
 type Prepos struct {
 	Given, Assert string
+	TestCases     string
 }
 
 var templt = template.Must(template.New("testfile").Parse(testfile))
@@ -35,28 +36,31 @@ func (m *machine) write() {
 				var pp []Prepos
 				for _, fp := range fun.pre {
 					pp = append(pp, Prepos{
-						Given:  fp.domain,
-						Assert: "error",
+						Given:     fp.succ,
+						Assert:    "error",
+						TestCases: testCases(fp.tcE),
 					})
-					if fp.impl == "" {
+					if fp.fail == "" {
 						continue
 					}
 					pp = append(pp, Prepos{
-						Given:  fp.impl,
+						Given:  fp.fail,
 						Assert: "error",
 					})
 				}
 				for _, fp := range fun.pos {
 					pp = append(pp, Prepos{
-						Given:  fp.domain,
-						Assert: "success",
+						Given:     fp.succ,
+						Assert:    "success",
+						TestCases: testCases(fp.tcS),
 					})
-					if fp.impl == "" {
+					if fp.fail == "" {
 						continue
 					}
 					pp = append(pp, Prepos{
-						Given:  fp.impl,
-						Assert: "error",
+						Given:     fp.fail,
+						Assert:    "error",
+						TestCases: testCases(fp.tcE),
 					})
 				}
 				funName := toCamelCase(fun.name)
@@ -108,12 +112,29 @@ func toCamelCase(in string) (out string) {
 	return
 }
 
+func testCases(in []string) (out string) {
+	if len(in) == 0 {
+		return
+	}
+
+	out = "\n"
+
+	for i, v := range in {
+		if i > 0 {
+			out += "\n"
+		}
+		out += "\t\t// " + v
+	}
+
+	return
+}
+
 var testfile = `package {{.Name}}
 
 import "testing"
 {{ range .Funs }}
 func Test{{.Name}}(t *testing.T) { {{ range .Prepos }}
-	t.Run("given {{.Given}}", func(t *testing.T) {
+	t.Run("given {{.Given}}", func(t *testing.T) { {{- .TestCases}}
 		t.Run("assert {{.Assert}}", func(t *testing.T) {
 		})
 	}){{ end }}
