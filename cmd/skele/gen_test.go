@@ -59,7 +59,7 @@ var itemFileContents = `package item
 
 import "testing"
 
-func TestAddItemToList(t *testing.T) { 
+func TestAddItemToList(t *testing.T) {
 	t.Run("given text too short", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
@@ -82,7 +82,7 @@ func TestAddItemToList(t *testing.T) {
 	})
 }
 
-func TestMarkItemAsDone(t *testing.T) { 
+func TestMarkItemAsDone(t *testing.T) {
 	t.Run("given item marked as done", func(t *testing.T) {
 		t.Run("assert success", func(t *testing.T) {
 		})
@@ -93,7 +93,7 @@ func TestMarkItemAsDone(t *testing.T) {
 	})
 }
 
-func TestRemoveItem(t *testing.T) { 
+func TestRemoveItem(t *testing.T) {
 	t.Run("given item is active", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
@@ -117,7 +117,7 @@ var listFileContents = `package list
 
 import "testing"
 
-func TestAddList(t *testing.T) { 
+func TestAddList(t *testing.T) {
 	t.Run("given name invalid", func(t *testing.T) {
 		// name is too short, assert name invalid
 		// name starts with a number, assert error
@@ -147,7 +147,7 @@ func TestAddList(t *testing.T) {
 	})
 }
 
-func TestRemoveList(t *testing.T) { 
+func TestRemoveList(t *testing.T) {
 	t.Run("given contains pending items", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})

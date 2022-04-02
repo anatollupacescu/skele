@@ -77,10 +77,10 @@ func (m *machine) write() {
 			}
 			outFile, err := os.Create(filename)
 			if err != nil {
-				log.Fatalf("create %s: %v", filename, err)
+				log.Fatalf("create %s: %s", filename, err)
 			}
 			if err := templt.Execute(outFile, pkg); err != nil {
-				log.Fatalf("execute: %v", err)
+				log.Fatalf("execute: %s", err)
 			}
 			pkg.Funs = nil // start over
 		}
@@ -93,11 +93,11 @@ func (m *machine) write() {
 			docPath := folder + "/doc.go"
 			docFile, err := os.Create(docPath)
 			if err != nil {
-				log.Fatalf("create file %s: %v", docPath, err)
+				log.Fatalf("create file %s: %s", docPath, err)
 			}
 			contents := "// " + strings.Join(ms.doc, "\n// ") + "\n\n" + "package " + ms.name + "\n"
 			if _, err := io.WriteString(docFile, contents); err != nil {
-				log.Fatalf("write doc.go for package %s", pkg.Name)
+				log.Fatalf("write doc.go for package %s: %s", pkg.Name, err)
 			}
 		}
 	}
@@ -133,7 +133,7 @@ var testfile = `package {{.Name}}
 
 import "testing"
 {{ range .Funs }}
-func Test{{.Name}}(t *testing.T) { {{ range .Prepos }}
+func Test{{.Name}}(t *testing.T) { {{- range .Prepos }}
 	t.Run("given {{.Given}}", func(t *testing.T) { {{- .TestCases}}
 		t.Run("assert {{.Assert}}", func(t *testing.T) {
 		})
