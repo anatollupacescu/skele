@@ -6,6 +6,9 @@ import (
 	"os"
 	"strings"
 	"text/template"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type Pkg struct {
@@ -20,7 +23,12 @@ type Fun struct {
 
 type Prepos struct {
 	Given, Assert string
-	TestCases     string
+	TestCases     []TestCase
+}
+
+type TestCase struct {
+	Case       string
+	Assertions []string
 }
 
 var templt = template.Must(template.New("testfile").Parse(testfile))
@@ -106,24 +114,42 @@ func (m *machine) write() {
 func toCamelCase(in string) (out string) {
 	split := strings.Split(in, " ")
 	for _, word := range split {
-		out += strings.Title(word)
+		out += cases.Title(language.Und).String(word)
 	}
 
 	return
 }
 
-func testCases(in []string) (out string) {
+func testCases(in []string) (cc []TestCase) {
 	if len(in) == 0 {
 		return
 	}
 
-	out = "\n"
+	cc = make([]TestCase, len(in))
 
-	for i, v := range in {
-		if i > 0 {
-			out += "\n"
+	for _, v := range in {
+		cs, aa := withAssertions(v)
+		if cs == "" {
+			cs = v
 		}
-		out += "\t\t// " + v
+		c := TestCase{Case: v, Assertions: aa}
+		cc = append(cc, c)
+	}
+
+	return
+}
+
+func withAssertions(v string) (cs string, aa []string) {
+	ss := strings.Split(v, ", assert ")
+	for i, s := range ss {
+		if i == 0 {
+			continue
+		}
+		aa = append(aa, "assert "+s)
+	}
+
+	if len(ss) > 0 {
+		cs = ss[0]
 	}
 
 	return
@@ -134,9 +160,14 @@ var testfile = `package {{.Name}}
 import "testing"
 {{ range .Funs }}
 func Test{{.Name}}(t *testing.T) { {{- range .Prepos }}
-	t.Run("given {{.Given}}", func(t *testing.T) { {{- .TestCases}}
-		t.Run("assert {{.Assert}}", func(t *testing.T) {
-		})
-	}){{ end }}
+	t.Run("given {{.Given}}", func(t *testing.T) { {{- range .TestCases}}
+		t.Run("{{.Case}}", func(t *testing.T) { {{- range .Assertions}}
+			t.Run("assert {{.}}", func(t *testing.T) {
+			}){{end}}
+		}){{ end }}
+	}){{ range .Assertions}}
+	t.Run("assert {{.}}", func(t *testing.T) {
+	}){{end}}
+	{{end}}
 }
 {{ end }}`

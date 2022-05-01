@@ -55,6 +55,77 @@ func removeFile(path string) {
 	}
 }
 
+var listFileContents = `package list
+
+import "testing"
+
+func TestAddList(t *testing.T) {
+	t.Run("given name invalid", func(t *testing.T) {
+		t.Run("name is too short", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+		t.Run("name starts with a number", func(t *testing.T) {
+			t.Run("assert bad", func(t *testing.T) {
+			})
+		})
+	})
+	t.Run("given name not unique", func(t *testing.T) {
+		t.Run("assert error", func(t *testing.T) {
+		})
+	})
+	t.Run("given failure to check name uniqueness", func(t *testing.T) {
+		t.Run("assert error", func(t *testing.T) {
+		})
+	})
+	t.Run("given list added", func(t *testing.T) {
+		t.Run("assert success", func(t *testing.T) {
+		})
+	})
+	t.Run("given failure to add list", func(t *testing.T) {
+		t.Run("failed to notify", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+		t.Run("could not persist", func(t *testing.T) {
+			t.Run("assert correct reason", func(t *testing.T) {
+			})
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+	})
+}
+
+func TestRemoveList(t *testing.T) {
+	t.Run("given contains pending items", func(t *testing.T) {
+		t.Run("one item list, item pending", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+		t.Run("two items list, one item pending", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+	})
+	t.Run("given list removed", func(t *testing.T) {
+		t.Run("one done item", func(t *testing.T) {
+			t.Run("assert success", func(t *testing.T) {
+			})
+		})
+		t.Run("two done items", func(t *testing.T) {
+			t.Run("assert success", func(t *testing.T) {
+			})
+		})
+	})
+	t.Run("given failure to remove list", func(t *testing.T) {
+		t.Run("one done item, persistence fails", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+	})
+}
+`
+
 var itemFileContents = `package item
 
 import "testing"
@@ -107,56 +178,6 @@ func TestRemoveItem(t *testing.T) {
 		})
 	})
 	t.Run("given failure to remove item", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-}
-`
-
-var listFileContents = `package list
-
-import "testing"
-
-func TestAddList(t *testing.T) {
-	t.Run("given name invalid", func(t *testing.T) {
-		// name is too short, assert name invalid
-		// name starts with a number, assert error
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-	t.Run("given name not unique", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-	t.Run("given failure to check name uniqueness", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-	t.Run("given list added", func(t *testing.T) {
-		// assert list can not be found, assert list added
-		// assert list is in the thrash bin, assert success
-		// assert list is out of sight, assert ok
-		t.Run("assert success", func(t *testing.T) {
-		})
-	})
-	t.Run("given failure to add list", func(t *testing.T) {
-		// one explosion, assert one loud bang
-		// one bang, assert error
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-}
-
-func TestRemoveList(t *testing.T) {
-	t.Run("given contains pending items", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
-		})
-	})
-	t.Run("given list removed", func(t *testing.T) {
-		t.Run("assert success", func(t *testing.T) {
-		})
-	})
-	t.Run("given failure to remove list", func(t *testing.T) {
 		t.Run("assert error", func(t *testing.T) {
 		})
 	})

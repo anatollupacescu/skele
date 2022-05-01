@@ -217,17 +217,11 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 	}
 
 	c.fsmSink = func(name, state string) {
-		pre := cf.currentPre()
-		pre.condition(name, state)
+		cf.currentPre().condition(name, state)
 	}
 
 	c.tcSink = func(s trimmable) {
-		ts := s.trim()
-		pre := cf.currentPre()
-		if !strings.Contains(ts, "assert") {
-			ts += ", assert error"
-		}
-		pre.errTestCase(ts)
+		cf.currentPre().errTestCase(s.trim())
 	}
 }
 
@@ -249,21 +243,23 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 	c.tcSink = func(s trimmable) {
 		ts := s.trim()
 		pos := c.machine.currentPackage().currentFile().currentFun().currentPos()
-		if isSuccess(pos.succ, ts) {
-			pos.okTestCase(ts)
+		if isErrorTC(pos.succ, ts) {
+			pos.errTestCase(ts)
 			return
 		}
 
-		pos.errTestCase(ts)
+		pos.okTestCase(ts)
 	}
 }
 
-func isSuccess(pos, s string) bool {
+func isErrorTC(pos, s string) bool {
 	if strings.HasSuffix(s, pos) ||
-		strings.HasSuffix(s, "assert success") ||
-		strings.HasSuffix(s, "assert ok") {
+		strings.HasSuffix(s, "assert error") ||
+		strings.HasSuffix(s, "assert fail") ||
+		strings.HasSuffix(s, "assert failure") {
 		return true
 	}
+
 	return false
 }
 
