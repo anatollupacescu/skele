@@ -22,8 +22,9 @@ type Fun struct {
 }
 
 type Prepos struct {
-	Given, Assert string
-	TestCases     []TestCase
+	Given      string
+	TestCases  []TestCase
+	Assertions []string
 }
 
 type TestCase struct {
@@ -43,32 +44,35 @@ func (m *machine) write() {
 			for _, fun := range file.fun {
 				var pp []Prepos
 				for _, fp := range fun.pre {
+					tcs := testCases(fp.tcE, "error")
 					pp = append(pp, Prepos{
-						Given:     fp.succ,
-						Assert:    "error",
-						TestCases: testCases(fp.tcE),
+						Given:      fp.succ,
+						TestCases:  tcs,
+						Assertions: assertions(tcs, "error"),
 					})
 					if fp.fail == "" {
 						continue
 					}
 					pp = append(pp, Prepos{
-						Given:  fp.fail,
-						Assert: "error",
+						Given:      fp.fail,
+						Assertions: assertions(tcs, "error"),
 					})
 				}
 				for _, fp := range fun.pos {
+					tcs := testCases(fp.tcS, "success")
 					pp = append(pp, Prepos{
-						Given:     fp.succ,
-						Assert:    "success",
-						TestCases: testCases(fp.tcS),
+						Given:      fp.succ,
+						TestCases:  tcs,
+						Assertions: assertions(tcs, "success"),
 					})
 					if fp.fail == "" {
 						continue
 					}
+					tcs = testCases(fp.tcE, "error")
 					pp = append(pp, Prepos{
-						Given:     fp.fail,
-						Assert:    "error",
-						TestCases: testCases(fp.tcE),
+						Given:      fp.fail,
+						TestCases:  tcs,
+						Assertions: assertions(tcs, "error"),
 					})
 				}
 				funName := toCamelCase(fun.name)
@@ -120,23 +124,33 @@ func toCamelCase(in string) (out string) {
 	return
 }
 
-func testCases(in []string) (cc []TestCase) {
+func testCases(in []string, at string) (cc []TestCase) {
 	if len(in) == 0 {
 		return
 	}
 
-	cc = make([]TestCase, len(in))
+	cc = make([]TestCase, 0, len(in))
 
 	for _, v := range in {
 		cs, aa := withAssertions(v)
 		if cs == "" {
 			cs = v
 		}
-		c := TestCase{Case: v, Assertions: aa}
+		if len(aa) == 0 {
+			aa = append(aa, at)
+		}
+		c := TestCase{Case: cs, Assertions: aa}
 		cc = append(cc, c)
 	}
 
 	return
+}
+
+func assertions(tcs []TestCase, in string) []string {
+	if len(tcs) > 0 {
+		return nil
+	}
+	return []string{in}
 }
 
 func withAssertions(v string) (cs string, aa []string) {
@@ -145,7 +159,7 @@ func withAssertions(v string) (cs string, aa []string) {
 		if i == 0 {
 			continue
 		}
-		aa = append(aa, "assert "+s)
+		aa = append(aa, s)
 	}
 
 	if len(ss) > 0 {
@@ -164,10 +178,9 @@ func Test{{.Name}}(t *testing.T) { {{- range .Prepos }}
 		t.Run("{{.Case}}", func(t *testing.T) { {{- range .Assertions}}
 			t.Run("assert {{.}}", func(t *testing.T) {
 			}){{end}}
-		}){{ end }}
-	}){{ range .Assertions}}
-	t.Run("assert {{.}}", func(t *testing.T) {
+		}){{ end }}{{ range .Assertions}}
+		t.Run("assert {{.}}", func(t *testing.T) {
+		}){{end}}
 	}){{end}}
-	{{end}}
 }
 {{ end }}`

@@ -97,7 +97,7 @@ func TestAddList(t *testing.T) {
 }
 
 func TestRemoveList(t *testing.T) {
-	t.Run("given contains pending items", func(t *testing.T) {
+	t.Run("given has pending items", func(t *testing.T) {
 		t.Run("one item list, item pending", func(t *testing.T) {
 			t.Run("assert error", func(t *testing.T) {
 			})
