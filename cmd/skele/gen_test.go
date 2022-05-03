@@ -75,7 +75,13 @@ func TestAddList(t *testing.T) {
 		})
 	})
 	t.Run("given failure to check name uniqueness", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
+		t.Run("one", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+		t.Run("two", func(t *testing.T) {
+			t.Run("assert not great", func(t *testing.T) {
+			})
 		})
 	})
 	t.Run("given list added", func(t *testing.T) {
@@ -118,7 +124,7 @@ func TestRemoveList(t *testing.T) {
 		})
 	})
 	t.Run("given failure to remove list", func(t *testing.T) {
-		t.Run("one done item, persistence fails", func(t *testing.T) {
+		t.Run("one done item, database call fails", func(t *testing.T) {
 			t.Run("assert error", func(t *testing.T) {
 			})
 		})
@@ -132,19 +138,23 @@ import "testing"
 
 func TestAddItemToList(t *testing.T) {
 	t.Run("given text too short", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
+		t.Run("assert error message specifies length", func(t *testing.T) {
 		})
 	})
 	t.Run("given text not unique in list", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
+		t.Run("assert item has not been added", func(t *testing.T) {
+		})
+		t.Run("assert error message contains the reason", func(t *testing.T) {
 		})
 	})
 	t.Run("given failure to check for uniqueness", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
+		t.Run("assert item has not been added", func(t *testing.T) {
+		})
+		t.Run("assert error message is non technical", func(t *testing.T) {
 		})
 	})
 	t.Run("given item added", func(t *testing.T) {
-		t.Run("assert success", func(t *testing.T) {
+		t.Run("assert item is present in the list", func(t *testing.T) {
 		})
 	})
 	t.Run("given failure to add item", func(t *testing.T) {
@@ -170,7 +180,13 @@ func TestRemoveItem(t *testing.T) {
 		})
 	})
 	t.Run("given failure to check item status", func(t *testing.T) {
-		t.Run("assert error", func(t *testing.T) {
+		t.Run("database call fails", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
+		})
+		t.Run("network call fails", func(t *testing.T) {
+			t.Run("assert error", func(t *testing.T) {
+			})
 		})
 	})
 	t.Run("given item removed", func(t *testing.T) {

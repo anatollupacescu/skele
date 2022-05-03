@@ -19,37 +19,37 @@ file list_test.go           # file comment
 fsm
     \ list
 states
-    \ active
+    \ active    # comment for a state
     \ done
     \ removed
 
 fun                                                     # function declaration comment
     \ add list                                          # function name comment
 pre                                                     # precondition comment
-    \ name invalid                                      # tc{name is too short}
-                                                        # tc{name starts with a number, assert bad}
-    \ name not unique       \ failure to check name uniqueness
+    \ name invalid                                      # tcs{name is too short}
+                                                        # tcs{name starts with a number, assert bad}
+    \ name not unique       \ failure to check name uniqueness # tcs{> one} tcs{> two, assert not great}
 pos
-    \ list added            \ failure to add list       # fsm{list->active} tc{failed to notify, assert error}
-                                                        # tc{could not persist, assert correct reason, assert error}
+    \ list added            \ failure to add list       # fsm{list->active} tcs{> failed to notify}
+                                                        # tcs{> could not persist, assert correct reason, assert error}
 
 fun
     \ remove list                                       # fsm{list=active}
 pre
     \ has pending items                                 # fsm{item=done}
-                                                        # tc{one item list, item pending}
-                                                        # tc{two items list, one item pending}
+                                                        # tcs{one item list, item pending}
+                                                        # tcs{two items list, one item pending}
 pos
     \ list removed          \ failure to remove list    # fsm{list->removed}
-                                                        # tc{one done item}
-                                                        # tc{two done items}
-                                                        # tc{one done item, persistence fails, assert error}
+                                                        # tcs{one done item}
+                                                        # tcs{two done items}
+                                                        # tcs{> one done item, database call fails}
 
 pkg item
 
 doc
     \ An item represents a TODO reminder comprised of a text and a status.
-    \ An active item can be marked as 'done' and only after it has been marked it can be removed.
+    \ An active item can be marked as 'done' and only after that it can be removed.
 
 file item_test.go
 
@@ -61,22 +61,26 @@ states
     \ removed
 
 fun
-    \ add item to list                                          # fsm{list=active} we can only add items to an existing list
+    \ add item to list                                              # fsm{list=active} we can only add items to an existing list
 pre
-    \ text too short
-    \ text not unique in list   \ failure to check for uniqueness
+    \ text too short                                                # arn{error message specifies length}
+    \ text not unique in list   \ failure to check for uniqueness   # arn{<> item has not been added}
+                                                                    # arn{< error message contains the reason}
+                                                                    # arn{> error message is non technical}
 pos
-    \ item added                \ failure to add item           # fsm{item->active}
-                                                                # as{item is found}
+    \ item added                \ failure to add item               # fsm{item->active}
+                                                                    # arn{item is present in the list}
 
 fun
-    \ mark item as done                                         # fsm{item=active}
+    \ mark item as done                                             # fsm{item=active}
 pos
-    \ item marked as done       \ failure to mark as done       # fsm{item->done}
+    \ item marked as done       \ failure to mark as done           # fsm{item->done}
 
 fun
-    \ remove item                                               # fsm{item=done}
+    \ remove item                                                   # fsm{item=done}
 pre
-    \ item is active            \ failure to check item status  # fail case can be registerd with tc{} if it is part of the implementation
+    \ item is active            \ failure to check item status      # fail case can be registerd with tcs{} if it is part of the implementation
+                                                                    # tcs{> database call fails}
+                                                                    # tcs{> network call fails}
 pos
-    \ item removed              \ failure to remove item        # fsm{item->removed}
+    \ item removed              \ failure to remove item            # fsm{item->removed}

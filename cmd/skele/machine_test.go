@@ -35,16 +35,16 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "old", m.pkgs[0].file[0].fun[0].fsm[1].state)
 
 	assert.Equal(t, "name invalid", m.pkgs[0].file[0].fun[0].pre[0].succ)
-	assert.Equal(t, "name is too short, assert name invalid", m.pkgs[0].file[0].fun[0].pre[0].tcE[0])
-	assert.Equal(t, "name starts with a number, assert error", m.pkgs[0].file[0].fun[0].pre[0].tcE[1])
+	assert.Equal(t, "name is too short, assert name invalid", m.pkgs[0].file[0].fun[0].pre[0].tcF[0])
+	assert.Equal(t, "name starts with a number, assert error", m.pkgs[0].file[0].fun[0].pre[0].tcF[1])
 	assert.Equal(t, "", m.pkgs[0].file[0].fun[0].pre[0].fail)
 
 	assert.Equal(t, "name not unique", m.pkgs[0].file[0].fun[0].pre[1].succ)
 	assert.Equal(t, "failure to check name uniqueness", m.pkgs[0].file[0].fun[0].pre[1].fail)
 
 	assert.Equal(t, "list added", m.pkgs[0].file[0].fun[0].pos[0].succ)
-	assert.Equal(t, "one explosion, assert one loud bang", m.pkgs[0].file[0].fun[0].pos[0].tcE[0])
-	assert.Equal(t, "one bang, assert error", m.pkgs[0].file[0].fun[0].pos[0].tcE[1])
+	assert.Equal(t, "one explosion, assert one loud bang", m.pkgs[0].file[0].fun[0].pos[0].tcF[0])
+	assert.Equal(t, "one bang, assert error", m.pkgs[0].file[0].fun[0].pos[0].tcF[1])
 	assert.Equal(t, "assert list can not be found, assert list added", m.pkgs[0].file[0].fun[0].pos[0].tcS[0])
 	assert.Equal(t, "assert list is in the thrash bin, assert success", m.pkgs[0].file[0].fun[0].pos[0].tcS[1])
 	assert.Equal(t, "assert list is out of sight, assert ok", m.pkgs[0].file[0].fun[0].pos[0].tcS[2])
@@ -78,7 +78,7 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "removed", m.pkgs[1].fsm[0].states[2])
 
 	assert.Equal(t, "An item represents a TODO reminder comprised of a text and a status.", m.pkgs[1].doc[0])
-	assert.Equal(t, "An active item can be marked as 'done' and only after it has been marked it can be removed.", m.pkgs[1].doc[1])
+	assert.Equal(t, "An active item can be marked as 'done' and only after that it can be removed.", m.pkgs[1].doc[1])
 
 	assert.Equal(t, "add item to list", m.pkgs[1].file[0].fun[0].name)
 	assert.Equal(t, "text too short", m.pkgs[1].file[0].fun[0].pre[0].succ)

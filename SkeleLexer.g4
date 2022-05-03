@@ -19,7 +19,5 @@ WORD: ID+ (ID | '_')*;
 
 NEWLINE : ('\r'? '\n' | '\r')+ ;
 
-FS : '/';
-
 WS : [ \n\t\r] -> skip;
 ID : [a-zA-Z];

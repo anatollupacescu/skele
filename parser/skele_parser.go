@@ -16,7 +16,7 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 19, 134,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 18, 134,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
 	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 3, 2, 6, 2, 32, 10, 2, 13, 2, 14, 2,
@@ -74,11 +74,11 @@ var parserATN = []uint16{
 }
 var literalNames = []string{
 	"", "'pkg'", "'fol'", "'doc'", "'file'", "'fun'", "'pre'", "'pos'", "'fsm'",
-	"'states'", "", "", "", "", "", "'/'",
+	"'states'",
 }
 var symbolicNames = []string{
 	"", "PKG", "FOL", "DOC", "FILE", "FUN", "PRE", "POS", "FSM", "STS", "LINE",
-	"COMMENT", "FILENAME", "WORD", "NEWLINE", "FS", "WS", "ID",
+	"COMMENT", "FILENAME", "WORD", "NEWLINE", "WS", "ID",
 }
 
 var ruleNames = []string{
@@ -132,9 +132,8 @@ const (
 	SkeleFILENAME = 12
 	SkeleWORD     = 13
 	SkeleNEWLINE  = 14
-	SkeleFS       = 15
-	SkeleWS       = 16
-	SkeleID       = 17
+	SkeleWS       = 15
+	SkeleID       = 16
 )
 
 // Skele rules.

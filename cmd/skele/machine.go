@@ -73,8 +73,8 @@ func (f *fun) condition(from, to string) {
 
 type prepos struct {
 	fsm        []edge
-	tcE        []string
-	tcS        []string
+	tcF, tcS   []string
+	arnF, arnS []string
 	succ, fail string
 }
 
@@ -82,12 +82,20 @@ func (p *prepos) condition(from, to string) { // it is `condition` for `pre`
 	p.transition(from, to) // but `transition` for `pos`
 }
 
-func (p *prepos) errTestCase(text string) {
-	p.tcE = append(p.tcE, text)
+func (p *prepos) failTestCase(text string) {
+	p.tcF = append(p.tcF, text)
 }
 
 func (p *prepos) okTestCase(text string) {
 	p.tcS = append(p.tcS, text)
+}
+
+func (p *prepos) failAssertion(text string) {
+	p.arnF = append(p.arnF, text)
+}
+
+func (p *prepos) okAssertion(text string) {
+	p.arnS = append(p.arnS, text)
 }
 
 func (p *prepos) transition(from, to string) {
@@ -108,9 +116,12 @@ func (ts trimmable) trim() string {
 type skeleListener struct {
 	*machine
 	*parser.BaseSkeleListener
-	sink    func(trimmable)
+
+	lnSink func(trimmable)
+
 	fsmSink func(string, string)
-	tcSink  func(trimmable)
+	arnSink func(trimmable)
+	tcsSink func(trimmable)
 }
 
 func (c *skeleListener) EnterPkg(ctx *parser.PkgContext) {
@@ -128,14 +139,14 @@ func (c *skeleListener) EnterFol(ctx *parser.FolContext) {
 
 func (c *skeleListener) EnterDoc(ctx *parser.DocContext) {
 	cs := c.currentPackage()
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		cs.doc = append(cs.doc, in.trim())
 	}
 }
 
 func (c *skeleListener) EnterFsm(ctx *parser.FsmContext) {
 	cs := c.currentPackage()
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		cs.fsm = append(cs.fsm, fsm{name: in.trim()})
 	}
 }
@@ -144,7 +155,7 @@ func (c *skeleListener) EnterSts(ctx *parser.StsContext) {
 	currentPkg := c.machine.currentPackage()
 	fsmIndex := len(currentPkg.fsm) - 1
 	states := &currentPkg.fsm[fsmIndex].states
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		*states = append(*states, in.trim())
 	}
 }
@@ -174,7 +185,7 @@ func containsFile(ff []file, f file) bool {
 func (c *skeleListener) EnterFun(*parser.FunContext) {
 	cf := c.machine.currentPackage().currentFile()
 
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		f := fun{
 			name: in.trim(),
 		}
@@ -201,6 +212,12 @@ func containsFun(list []fun, f fun) bool {
 	return false
 }
 
+const (
+	failSign = "> "
+	okSign   = "< "
+	bothSign = "<> "
+)
+
 func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 	cf := c.machine.currentPackage().currentFile().currentFun()
 	adapter := func(given, assert string) {
@@ -212,7 +229,7 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		cf.pre = append(cf.pre, pp)
 	}
 
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		parsePreposLine(in.trim(), adapter)
 	}
 
@@ -220,71 +237,110 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		cf.currentPre().condition(name, state)
 	}
 
-	c.tcSink = func(s trimmable) {
-		cf.currentPre().errTestCase(s.trim())
+	c.tcsSink = func(s trimmable) {
+		pre := cf.currentPre()
+		ts := s.trim()
+		if strings.HasPrefix(ts, failSign) {
+			pre.failTestCase(ts[len(failSign):])
+			return
+		}
+		ts = strings.TrimPrefix(ts, okSign)
+		pre.okTestCase(ts)
+	}
+
+	c.arnSink = func(s trimmable) {
+		pre := cf.currentPre()
+		ts := s.trim()
+		if strings.HasPrefix(ts, bothSign) {
+			pre.failAssertion(ts[len(bothSign):])
+			pre.okAssertion(ts[len(bothSign):])
+			return
+		}
+		if strings.HasPrefix(ts, failSign) {
+			pre.failAssertion(ts[len(failSign):])
+			return
+		}
+		ts = strings.TrimPrefix(ts, okSign)
+		pre.okAssertion(ts)
 	}
 }
 
 func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
+	cf := c.machine.currentPackage().currentFile().currentFun()
 	adapter := func(given, assert string) {
 		pp := prepos{
 			succ: given,
 			fail: assert,
 		}
 
-		fn := c.machine.currentPackage().currentFile().currentFun()
+		fn := cf
 		fn.pos = append(fn.pos, pp)
 	}
 
-	c.sink = func(in trimmable) {
+	c.lnSink = func(in trimmable) {
 		parsePreposLine(in.trim(), adapter)
 	}
 
-	c.tcSink = func(s trimmable) {
+	c.tcsSink = func(s trimmable) {
 		ts := s.trim()
-		pos := c.machine.currentPackage().currentFile().currentFun().currentPos()
-		if isErrorTC(pos.succ, ts) {
-			pos.errTestCase(ts)
+		pos := cf.currentPos()
+
+		if strings.HasPrefix(ts, failSign) {
+			pos.failTestCase(ts[len(failSign):])
 			return
 		}
-
+		ts = strings.TrimPrefix(ts, okSign)
 		pos.okTestCase(ts)
 	}
-}
 
-func isErrorTC(pos, s string) bool {
-	if strings.HasSuffix(s, pos) ||
-		strings.HasSuffix(s, "assert error") ||
-		strings.HasSuffix(s, "assert fail") ||
-		strings.HasSuffix(s, "assert failure") {
-		return true
+	c.arnSink = func(s trimmable) {
+		pos := cf.currentPos()
+		ts := s.trim()
+		if strings.HasPrefix(ts, failSign) {
+			pos.failAssertion(ts[len(failSign):])
+			return
+		}
+		ts = strings.TrimPrefix(ts, okSign)
+		pos.okAssertion(ts)
 	}
-
-	return false
 }
 
 func (c *skeleListener) EnterLn(ctx *parser.LnContext) {
 	line := ctx.LINE().GetText()
-	c.sink(trimmable(line))
+	c.lnSink(trimmable(line))
 }
 
 var (
-	fsmReg   = regexp.MustCompile(`fsm\{(?P<name>\w+)((?P<op>(=))|(?P<arr>(->)))(?P<state>\w+)\}`)
-	tcReg    = regexp.MustCompile(`tc\{(?P<text>(\w+(,* +\w+)*))\}`)
+	fsmReg = regexp.MustCompile(`fsm\{(?P<name>\w+)((?P<op>(=))|(?P<arr>(->)))(?P<state>\w+)\}`)
+	arnReg = regexp.MustCompile(`arn\{(?P<text>([<>] |<> )?(\w+(,* +\w+)*))\}`)
+	tcsReg = regexp.MustCompile(`tcs\{(?P<text>([<>] )?(\w+(,* +\w+)*))\}`)
+
 	fsmNames = fsmReg.SubexpNames()
-	tcNames  = tcReg.SubexpNames()
+	tcsNames = tcsReg.SubexpNames()
+	arnNames = arnReg.SubexpNames()
 )
 
 func (c *skeleListener) EnterComment(ctx *parser.CommentContext) {
 	commentText := ctx.COMMENT().GetText()
 
-	for _, submatches := range tcReg.FindAllStringSubmatch(commentText, -1) {
+	// search for `arn` declaration in the comment text
+	for _, submatches := range arnReg.FindAllStringSubmatch(commentText, -1) {
 		results := make(map[string]string, len(submatches))
 		for i, name := range submatches {
-			results[tcNames[i]] = name
+			results[arnNames[i]] = name
 		}
 		txt := results["text"]
-		c.tcSink(trimmable(txt))
+		c.arnSink(trimmable(txt))
+	}
+
+	// search for `tcs` declaration in the comment text
+	for _, submatches := range tcsReg.FindAllStringSubmatch(commentText, -1) {
+		results := make(map[string]string, len(submatches))
+		for i, name := range submatches {
+			results[tcsNames[i]] = name
+		}
+		txt := results["text"]
+		c.tcsSink(trimmable(txt))
 	}
 
 	// search for `fsm` declaration in the comment text

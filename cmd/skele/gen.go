@@ -44,18 +44,20 @@ func (m *machine) write() {
 			for _, fun := range file.fun {
 				var pp []Prepos
 				for _, fp := range fun.pre {
-					tcs := testCases(fp.tcE, "error")
+					tcs := testCases(fp.tcS, "error")
 					pp = append(pp, Prepos{
 						Given:      fp.succ,
 						TestCases:  tcs,
-						Assertions: assertions(tcs, "error"),
+						Assertions: assertions(tcs, fp.arnS, "error"),
 					})
 					if fp.fail == "" {
 						continue
 					}
+					tcs = testCases(fp.tcF, "error")
 					pp = append(pp, Prepos{
 						Given:      fp.fail,
-						Assertions: assertions(tcs, "error"),
+						TestCases:  tcs,
+						Assertions: assertions(tcs, fp.arnF, "error"),
 					})
 				}
 				for _, fp := range fun.pos {
@@ -63,16 +65,16 @@ func (m *machine) write() {
 					pp = append(pp, Prepos{
 						Given:      fp.succ,
 						TestCases:  tcs,
-						Assertions: assertions(tcs, "success"),
+						Assertions: assertions(tcs, fp.arnS, "success"),
 					})
 					if fp.fail == "" {
 						continue
 					}
-					tcs = testCases(fp.tcE, "error")
+					tcs = testCases(fp.tcF, "error")
 					pp = append(pp, Prepos{
 						Given:      fp.fail,
 						TestCases:  tcs,
-						Assertions: assertions(tcs, "error"),
+						Assertions: assertions(tcs, fp.arnF, "error"),
 					})
 				}
 				funName := toCamelCase(fun.name)
@@ -146,11 +148,16 @@ func testCases(in []string, at string) (cc []TestCase) {
 	return
 }
 
-func assertions(tcs []TestCase, in string) []string {
-	if len(tcs) > 0 {
+func assertions(tcs []TestCase, arn []string, in string) []string {
+	if len(tcs) > 0 && len(arn) == 0 {
 		return nil
 	}
-	return []string{in}
+
+	if len(arn) == 0 {
+		return []string{in}
+	}
+
+	return arn
 }
 
 func withAssertions(v string) (cs string, aa []string) {
