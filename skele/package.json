@@ -1,0 +1,25 @@
+{
+    "name": "skele",
+    "displayName": "skele",
+    "description": "Skele test specification language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.67.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "skl",
+            "aliases": ["Skele", "skl"],
+            "extensions": [".skl",".skele"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "skl",
+            "scopeName": "source.skele",
+            "path": "./syntaxes/skl.tmLanguage.json"
+        }]
+    }
+}

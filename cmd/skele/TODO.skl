@@ -7,7 +7,7 @@ fol list # folder
 # single comment
 
 doc
-    \ A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.
+    \ A list is a named collection of reminders, or "TODO items". A set of such lists constitutes the ToDoApp.
     \ A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'
 
 # single comment
@@ -22,15 +22,15 @@ states
     \ active    # comment for a state
     \ removed
 
-fun                                                     # function declaration comment
-    \ add list                                          # function name comment
-pre                                                     # precondition comment
-    \ name invalid                                      # tcs{name is too short}
-                                                        # tcs{name starts with a number, assert bad}
-    \ name not unique       \ failure to check name uniqueness # tcs{> one} tcs{> two, assert not great}
+fun                                                             # function declaration comment
+    \ add list                                                  # function name comment
+pre                                                             # precondition comment
+    \ name invalid                                              # tcs{name is too short}
+                                                                # tcs{name starts with a number, assert bad}
+    \ name not unique       \ failure to check name uniqueness  # tcs{> one} tcs{> two, assert not great}
 pos
-    \ list added            \ failure to add list       # fsm{list->active} tcs{> failed to notify}
-                                                        # tcs{> could not persist, assert correct reason, assert error}
+    \ list added            \ failure to add list               # fsm{list->active} tcs{> failed to notify}
+                                                                # tcs{> could not persist, assert correct reason, assert error}
 
 fun
     \ remove list                                       # fsm{list=active}

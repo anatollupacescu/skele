@@ -1,0 +1,36 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Skele",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#bold-keywords"
+		},
+		{
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [{
+				"name": "keyword.comment.skl",
+				"match": "#( ){1}(=|-|<|>|,|\\{|\\}| |\\w+)*\\n"
+			}]
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.skl",
+				"match": "^(fol|doc|file|pre|pos|fsm|states)(\\n|[ ]+)"
+			}]
+		},
+		"bold-keywords": {
+			"patterns": [{
+				"name": "keyword.bold.skl",
+				"match": "^(pkg|fun)(\\n|[ ]+)"
+			}]
+		}
+	},
+	"scopeName": "source.skele"
+}

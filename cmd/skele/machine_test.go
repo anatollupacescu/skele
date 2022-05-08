@@ -16,8 +16,8 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "list", pkg_list.name)
 	assert.Equal(t, "list", pkg_list.fol)
 
-	assert.Equal(t, "A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.", pkg_list.doc[0])
-	assert.Equal(t, "A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'", pkg_list.doc[1])
+	assert.Equal(t, "A list is a named collection of reminders, or \"TODO items\". A set of such lists constitutes the ToDoApp.", m.pkgs[0].doc[0])
+	assert.Equal(t, "A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'", m.pkgs[0].doc[1])
 
 	assert.Equal(t, "list_test.go", pkg_list.file[0].name)
 

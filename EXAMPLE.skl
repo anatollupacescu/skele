@@ -12,7 +12,7 @@ fun
     \ create inventory item
 pre
     \ name empty
-    \ name non unique   \ fail to check for uniqueness #comment
+    \ name non unique   \ fail to check for uniqueness # precondition comment
 pos
     \ item is saved     \ fail to saving the item
 
