@@ -12,94 +12,96 @@ func TestTODO(t *testing.T) {
 	m.read("TODO.skl")
 
 	// list
-	assert.Equal(t, "list", m.pkgs[0].name)
-	assert.Equal(t, "list", m.pkgs[0].fol)
+	pkg_list := m.pkgs[0]
+	assert.Equal(t, "list", pkg_list.name)
+	assert.Equal(t, "list", pkg_list.fol)
 
-	assert.Equal(t, "A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.", m.pkgs[0].doc[0])
-	assert.Equal(t, "A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'", m.pkgs[0].doc[1])
+	assert.Equal(t, "A list is a named collection of reminders (TODO items). A set of such lists constitutes the ToDoApp.", pkg_list.doc[0])
+	assert.Equal(t, "A list can be added if the name is unique and not empty. A list can be removed if all of its items are 'done'", pkg_list.doc[1])
 
-	assert.Equal(t, "list_test.go", m.pkgs[0].file[0].name)
+	assert.Equal(t, "list_test.go", pkg_list.file[0].name)
 
 	// fsm
-	assert.Equal(t, "list", m.pkgs[0].fsm[0].name)
-	assert.Equal(t, "new", m.pkgs[0].fsm[0].states[0])
-	assert.Equal(t, "done", m.pkgs[0].fsm[0].states[1])
-	assert.Equal(t, "removed", m.pkgs[0].fsm[0].states[2])
+	assert.Equal(t, "list", pkg_list.fsm[0].name)
+	assert.Equal(t, "active", pkg_list.fsm[0].states[0])
+	assert.Equal(t, "removed", pkg_list.fsm[0].states[1])
 
 	// add list fun
-	assert.Equal(t, "add list", m.pkgs[0].file[0].fun[0].name)
-	assert.Equal(t, "list", m.pkgs[0].file[0].fun[0].fsm[0].name)
-	assert.Equal(t, "new", m.pkgs[0].file[0].fun[0].fsm[0].state)
+	fun_add_list := pkg_list.file[0].fun[0]
+	assert.Equal(t, "add list", fun_add_list.name)
 
-	assert.Equal(t, "item", m.pkgs[0].file[0].fun[0].fsm[1].name)
-	assert.Equal(t, "old", m.pkgs[0].file[0].fun[0].fsm[1].state)
+	assert.Equal(t, "name invalid", fun_add_list.pre[0].succ)
+	assert.Equal(t, "", fun_add_list.pre[0].fail)
+	assert.Equal(t, "name is too short", fun_add_list.pre[0].tcS[0])
+	assert.Equal(t, "name starts with a number, assert bad", fun_add_list.pre[0].tcS[1])
 
-	assert.Equal(t, "name invalid", m.pkgs[0].file[0].fun[0].pre[0].succ)
-	assert.Equal(t, "name is too short, assert name invalid", m.pkgs[0].file[0].fun[0].pre[0].tcF[0])
-	assert.Equal(t, "name starts with a number, assert error", m.pkgs[0].file[0].fun[0].pre[0].tcF[1])
-	assert.Equal(t, "", m.pkgs[0].file[0].fun[0].pre[0].fail)
+	assert.Equal(t, "name not unique", fun_add_list.pre[1].succ)
+	assert.Equal(t, "failure to check name uniqueness", fun_add_list.pre[1].fail)
+	assert.Equal(t, "one", fun_add_list.pre[1].tcF[0])
+	assert.Equal(t, "two, assert not great", fun_add_list.pre[1].tcF[1])
 
-	assert.Equal(t, "name not unique", m.pkgs[0].file[0].fun[0].pre[1].succ)
-	assert.Equal(t, "failure to check name uniqueness", m.pkgs[0].file[0].fun[0].pre[1].fail)
+	assert.Equal(t, "list added", fun_add_list.pos[0].succ)
+	assert.Equal(t, "failure to add list", fun_add_list.pos[0].fail)
+	assert.Equal(t, "failed to notify", fun_add_list.pos[0].tcF[0])
+	assert.Equal(t, "could not persist, assert correct reason, assert error", fun_add_list.pos[0].tcF[1])
+	assert.Equal(t, "list", fun_add_list.pos[0].fsm[0].name)
+	assert.Equal(t, "active", fun_add_list.pos[0].fsm[0].state)
 
-	assert.Equal(t, "list added", m.pkgs[0].file[0].fun[0].pos[0].succ)
-	assert.Equal(t, "one explosion, assert one loud bang", m.pkgs[0].file[0].fun[0].pos[0].tcF[0])
-	assert.Equal(t, "one bang, assert error", m.pkgs[0].file[0].fun[0].pos[0].tcF[1])
-	assert.Equal(t, "assert list can not be found, assert list added", m.pkgs[0].file[0].fun[0].pos[0].tcS[0])
-	assert.Equal(t, "assert list is in the thrash bin, assert success", m.pkgs[0].file[0].fun[0].pos[0].tcS[1])
-	assert.Equal(t, "assert list is out of sight, assert ok", m.pkgs[0].file[0].fun[0].pos[0].tcS[2])
-	assert.Equal(t, "failure to add list", m.pkgs[0].file[0].fun[0].pos[0].fail)
+	fun_remove_list := pkg_list.file[0].fun[1]
+	assert.Equal(t, "remove list", fun_remove_list.name)
+	assert.Equal(t, "list", fun_remove_list.fsm.name)
+	assert.Equal(t, "active", fun_remove_list.fsm.state)
 
-	assert.Equal(t, "remove list", m.pkgs[0].file[0].fun[1].name)
-	assert.Equal(t, "list", m.pkgs[0].file[0].fun[1].fsm[0].name)
-	assert.Equal(t, "new", m.pkgs[0].file[0].fun[1].fsm[0].state)
+	assert.Equal(t, "has pending items", fun_remove_list.pre[0].succ)
+	assert.Equal(t, "", fun_remove_list.pre[0].fail)
 
-	assert.Equal(t, "contains pending items", m.pkgs[0].file[0].fun[1].pre[0].succ)
-	assert.Equal(t, "", m.pkgs[0].file[0].fun[1].pre[0].fail)
+	assert.Equal(t, "item", fun_remove_list.pre[0].fsm[0].name)
+	assert.Equal(t, "done", fun_remove_list.pre[0].fsm[0].state)
 
-	assert.Equal(t, "item", m.pkgs[0].file[0].fun[1].pre[0].fsm[0].name)
-	assert.Equal(t, "done", m.pkgs[0].file[0].fun[1].pre[0].fsm[0].state)
+	assert.Equal(t, "list removed", fun_remove_list.pos[0].succ)
+	assert.Equal(t, "failure to remove list", fun_remove_list.pos[0].fail)
 
-	assert.Equal(t, "list removed", m.pkgs[0].file[0].fun[1].pos[0].succ)
-	assert.Equal(t, "failure to remove list", m.pkgs[0].file[0].fun[1].pos[0].fail)
-
-	assert.Equal(t, "list", m.pkgs[0].file[0].fun[1].pos[0].fsm[0].name)
-	assert.Equal(t, "removed", m.pkgs[0].file[0].fun[1].pos[0].fsm[0].state)
+	assert.Equal(t, "list", fun_remove_list.pos[0].fsm[0].name)
+	assert.Equal(t, "removed", fun_remove_list.pos[0].fsm[0].state)
 
 	// item
-	assert.Equal(t, "item", m.pkgs[1].name)
-	assert.Equal(t, "", m.pkgs[1].fol)
-	assert.Equal(t, "item_test.go", m.pkgs[1].file[0].name)
+	pkg_item := m.pkgs[1]
+	assert.Equal(t, "item", pkg_item.name)
+	assert.Equal(t, "", pkg_item.fol)
+	assert.Equal(t, "item_test.go", pkg_item.file[0].name)
 
 	// fsm
-	assert.Equal(t, "item", m.pkgs[1].fsm[0].name)
-	assert.Equal(t, "new", m.pkgs[1].fsm[0].states[0])
-	assert.Equal(t, "done", m.pkgs[1].fsm[0].states[1])
-	assert.Equal(t, "removed", m.pkgs[1].fsm[0].states[2])
+	assert.Equal(t, "item", pkg_item.fsm[0].name)
+	assert.Equal(t, "active", pkg_item.fsm[0].states[0])
+	assert.Equal(t, "done", pkg_item.fsm[0].states[1])
+	assert.Equal(t, "removed", pkg_item.fsm[0].states[2])
 
-	assert.Equal(t, "An item represents a TODO reminder comprised of a text and a status.", m.pkgs[1].doc[0])
-	assert.Equal(t, "An active item can be marked as 'done' and only after that it can be removed.", m.pkgs[1].doc[1])
+	assert.Equal(t, "An item represents a TODO reminder comprised of a text and a status.", pkg_item.doc[0])
+	assert.Equal(t, "An active item can be marked as 'done' and only after that it can be removed.", pkg_item.doc[1])
 
-	assert.Equal(t, "add item to list", m.pkgs[1].file[0].fun[0].name)
-	assert.Equal(t, "text too short", m.pkgs[1].file[0].fun[0].pre[0].succ)
-	assert.Equal(t, "", m.pkgs[1].file[0].fun[0].pre[0].fail)
+	fun_add_item_to_list := pkg_item.file[0].fun[0]
+	assert.Equal(t, "add item to list", fun_add_item_to_list.name)
+	assert.Equal(t, "text too short", fun_add_item_to_list.pre[0].succ)
+	assert.Equal(t, "", fun_add_item_to_list.pre[0].fail)
 
-	assert.Equal(t, "text not unique in list", m.pkgs[1].file[0].fun[0].pre[1].succ)
-	assert.Equal(t, "failure to check for uniqueness", m.pkgs[1].file[0].fun[0].pre[1].fail)
+	assert.Equal(t, "text not unique in list", fun_add_item_to_list.pre[1].succ)
+	assert.Equal(t, "failure to check for uniqueness", fun_add_item_to_list.pre[1].fail)
 
-	assert.Equal(t, "item added", m.pkgs[1].file[0].fun[0].pos[0].succ)
-	assert.Equal(t, "failure to add item", m.pkgs[1].file[0].fun[0].pos[0].fail)
+	assert.Equal(t, "item added", fun_add_item_to_list.pos[0].succ)
+	assert.Equal(t, "failure to add item", fun_add_item_to_list.pos[0].fail)
 
-	assert.Equal(t, "mark item as done", m.pkgs[1].file[0].fun[1].name)
+	fun_mark_item_as_done := pkg_item.file[0].fun[1]
+	assert.Equal(t, "mark item as done", fun_mark_item_as_done.name)
 
-	assert.Equal(t, "item marked as done", m.pkgs[1].file[0].fun[1].pos[0].succ)
-	assert.Equal(t, "failure to mark as done", m.pkgs[1].file[0].fun[1].pos[0].fail)
+	assert.Equal(t, "item marked as done", fun_mark_item_as_done.pos[0].succ)
+	assert.Equal(t, "failure to mark as done", fun_mark_item_as_done.pos[0].fail)
 
-	assert.Equal(t, "remove item", m.pkgs[1].file[0].fun[2].name)
+	fun_remove_item := pkg_item.file[0].fun[2]
+	assert.Equal(t, "remove item", fun_remove_item.name)
 
-	assert.Equal(t, "item is active", m.pkgs[1].file[0].fun[2].pre[0].succ)
-	assert.Equal(t, "failure to check item status", m.pkgs[1].file[0].fun[2].pre[0].fail)
+	assert.Equal(t, "item is active", fun_remove_item.pre[0].succ)
+	assert.Equal(t, "failure to check item status", fun_remove_item.pre[0].fail)
 
-	assert.Equal(t, "item removed", m.pkgs[1].file[0].fun[2].pos[0].succ)
-	assert.Equal(t, "failure to remove item", m.pkgs[1].file[0].fun[2].pos[0].fail)
+	assert.Equal(t, "item removed", fun_remove_item.pos[0].succ)
+	assert.Equal(t, "failure to remove item", fun_remove_item.pos[0].fail)
 }

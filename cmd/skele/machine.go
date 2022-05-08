@@ -13,8 +13,7 @@ type machine struct {
 }
 
 func (m *machine) currentPackage() *pkg {
-	lastPkgIndex := len(m.pkgs) - 1
-	return &m.pkgs[lastPkgIndex]
+	return &m.pkgs[len(m.pkgs)-1]
 }
 
 type pkg struct {
@@ -25,8 +24,7 @@ type pkg struct {
 }
 
 func (p *pkg) currentFile() *file {
-	lastFileIndex := len(p.file) - 1
-	return &p.file[lastFileIndex]
+	return &p.file[len(p.file)-1]
 }
 
 type fsm struct {
@@ -40,8 +38,7 @@ type file struct {
 }
 
 func (f *file) currentFun() *fun {
-	lastFunIndex := len(f.fun) - 1
-	return &f.fun[lastFunIndex]
+	return &f.fun[len(f.fun)-1]
 }
 
 type edge struct {
@@ -50,25 +47,20 @@ type edge struct {
 
 type fun struct {
 	name     string
-	fsm      []edge
+	fsm      edge
 	pre, pos []prepos
 }
 
 func (f *fun) currentPre() *prepos {
-	lastPreIndex := len(f.pre) - 1
-	return &f.pre[lastPreIndex]
+	return &f.pre[len(f.pre)-1]
 }
 
 func (f *fun) currentPos() *prepos {
-	lastPosIndex := len(f.pos) - 1
-	return &f.pos[lastPosIndex]
+	return &f.pos[len(f.pos)-1]
 }
 
 func (f *fun) condition(from, to string) {
-	f.fsm = append(f.fsm, edge{
-		name:  from,
-		state: to,
-	})
+	f.fsm = edge{name: from, state: to}
 }
 
 type prepos struct {
@@ -120,8 +112,8 @@ type skeleListener struct {
 	lnSink func(trimmable)
 
 	fsmSink func(string, string)
-	arnSink func(trimmable)
-	tcsSink func(trimmable)
+	arnSink func(string)
+	tcsSink func(string)
 }
 
 func (c *skeleListener) EnterPkg(ctx *parser.PkgContext) {
@@ -237,31 +229,29 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		cf.currentPre().condition(name, state)
 	}
 
-	c.tcsSink = func(s trimmable) {
+	c.tcsSink = func(s string) {
 		pre := cf.currentPre()
-		ts := s.trim()
-		if strings.HasPrefix(ts, failSign) {
-			pre.failTestCase(ts[len(failSign):])
+		if strings.HasPrefix(s, failSign) {
+			pre.failTestCase(s[len(failSign):])
 			return
 		}
-		ts = strings.TrimPrefix(ts, okSign)
-		pre.okTestCase(ts)
+		s = strings.TrimPrefix(s, okSign)
+		pre.okTestCase(s)
 	}
 
-	c.arnSink = func(s trimmable) {
+	c.arnSink = func(s string) {
 		pre := cf.currentPre()
-		ts := s.trim()
-		if strings.HasPrefix(ts, bothSign) {
-			pre.failAssertion(ts[len(bothSign):])
-			pre.okAssertion(ts[len(bothSign):])
+		if strings.HasPrefix(s, bothSign) {
+			pre.failAssertion(s[len(bothSign):])
+			pre.okAssertion(s[len(bothSign):])
 			return
 		}
-		if strings.HasPrefix(ts, failSign) {
-			pre.failAssertion(ts[len(failSign):])
+		if strings.HasPrefix(s, failSign) {
+			pre.failAssertion(s[len(failSign):])
 			return
 		}
-		ts = strings.TrimPrefix(ts, okSign)
-		pre.okAssertion(ts)
+		s = strings.TrimPrefix(s, okSign)
+		pre.okAssertion(s)
 	}
 }
 
@@ -281,27 +271,25 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 		parsePreposLine(in.trim(), adapter)
 	}
 
-	c.tcsSink = func(s trimmable) {
-		ts := s.trim()
+	c.tcsSink = func(s string) {
 		pos := cf.currentPos()
 
-		if strings.HasPrefix(ts, failSign) {
-			pos.failTestCase(ts[len(failSign):])
+		if strings.HasPrefix(s, failSign) {
+			pos.failTestCase(s[len(failSign):])
 			return
 		}
-		ts = strings.TrimPrefix(ts, okSign)
-		pos.okTestCase(ts)
+		s = strings.TrimPrefix(s, okSign)
+		pos.okTestCase(s)
 	}
 
-	c.arnSink = func(s trimmable) {
+	c.arnSink = func(s string) {
 		pos := cf.currentPos()
-		ts := s.trim()
-		if strings.HasPrefix(ts, failSign) {
-			pos.failAssertion(ts[len(failSign):])
+		if strings.HasPrefix(s, failSign) {
+			pos.failAssertion(s[len(failSign):])
 			return
 		}
-		ts = strings.TrimPrefix(ts, okSign)
-		pos.okAssertion(ts)
+		s = strings.TrimPrefix(s, okSign)
+		pos.okAssertion(s)
 	}
 }
 
@@ -330,7 +318,7 @@ func (c *skeleListener) EnterComment(ctx *parser.CommentContext) {
 			results[arnNames[i]] = name
 		}
 		txt := results["text"]
-		c.arnSink(trimmable(txt))
+		c.arnSink(txt)
 	}
 
 	// search for `tcs` declaration in the comment text
@@ -340,7 +328,7 @@ func (c *skeleListener) EnterComment(ctx *parser.CommentContext) {
 			results[tcsNames[i]] = name
 		}
 		txt := results["text"]
-		c.tcsSink(trimmable(txt))
+		c.tcsSink(txt)
 	}
 
 	// search for `fsm` declaration in the comment text

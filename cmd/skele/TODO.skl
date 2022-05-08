@@ -20,7 +20,6 @@ fsm
     \ list
 states
     \ active    # comment for a state
-    \ done
     \ removed
 
 fun                                                     # function declaration comment
