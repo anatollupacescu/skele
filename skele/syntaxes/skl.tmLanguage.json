@@ -13,10 +13,19 @@
 		}
 	],
 	"repository": {
-		"comments": {
+		"comments":{
+			"name": "keyword.comment.skl",
+			"begin": "# ",
+			"end": "\\n",
 			"patterns": [{
-				"name": "keyword.comment.skl",
-				"match": "#( ){1}(=|-|<|>|,|\\{|\\}| |\\w+)*\\n"
+				"name": "keyword.technical.tcs.skl",
+				"match": "tcs"
+			},{
+				"name": "keyword.technical.arn.skl",
+				"match": "arn"
+			},{
+				"name": "keyword.technical.fsm.skl",
+				"match": "fsm"
 			}]
 		},
 		"keywords": {

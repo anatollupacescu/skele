@@ -19,12 +19,27 @@ Add this to your VSCode's `settings.json` file:
                 "settings": {
                     "foreground": "#a7ab3f"
                 }
-                },{
-                    "scope": "keyword.bold.skl",
-                    "settings": {
-                        "foreground": "#cd5424"
-                    }
+            },{
+                "scope": "keyword.bold.skl",
+                "settings": {
+                    "foreground": "#cd5424"
                 }
+            },{
+                "scope": "keyword.technical.fsm.skl",
+                "settings": {
+                    "foreground": "#6cc6a7"
+                }
+            },{
+                "scope": "keyword.technical.tcs.skl",
+                "settings": {
+                    "foreground": "#6aa5c2"
+                }
+            },{
+                "scope": "keyword.technical.arn.skl",
+                "settings": {
+                    "foreground": "#9fa781"
+                }
+            }
         ]
     }
 ```
