@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -10,6 +12,60 @@ import (
 
 type machine struct {
 	pkgs []pkg
+}
+
+/*
+considerations
+- first declared state is the initial state
+- one initial state
+- one transition per edge
+- one end state
+
+build phase
+- fsm names should be unique globally
+- fsm in function name and precondition should be equality check
+- fsm in postcondition should be a transition
+
+validation phase
+- state without connection to the initial state
+- missing transition function for a certain edge
+- two functions for the same edge (postcondition)
+- error if fsm name not mentioned in function name and state is not initial
+*/
+func (m *machine) ValidateFSM() (errs []error) {
+	global := make(mFSMS)
+
+	for _, pkg := range m.pkgs {
+		for _, f := range pkg.fsm {
+			if err := global.add(pkg.name, f); err != nil {
+				errs = append(errs, err)
+			}
+		}
+	}
+
+	if len(errs) > 0 {
+		return
+	}
+
+	// register transitions for every function
+	for _, pkg := range m.pkgs {
+		for _, f := range pkg.file {
+			for _, fun := range f.fun {
+				errs = append(errs, global.fun(fun)...)
+			}
+		}
+	}
+
+	if len(errs) > 0 {
+		return
+	}
+
+	// validate
+	errs = append(errs, global.checkUnused()...)
+	// errs = append(errs, global.checkDuplicateTransition()...)
+	// errs = append(errs, global.checkCirclular()...)
+
+	return
 }
 
 func (m *machine) currentPackage() *pkg {
@@ -47,7 +103,7 @@ type edge struct {
 
 type fun struct {
 	name     string
-	fsm      edge
+	fsm      *edge //one or more?
 	pre, pos []prepos
 }
 
@@ -59,19 +115,30 @@ func (f *fun) currentPos() *prepos {
 	return &f.pos[len(f.pos)-1]
 }
 
-func (f *fun) condition(from, to string) {
-	f.fsm = edge{name: from, state: to}
+func (f *fun) from(name, to string) {
+	f.fsm = &edge{name: name, state: to}
 }
 
 type prepos struct {
-	fsm        []edge
+	fsm        edge
 	tcF, tcS   []string
 	arnF, arnS []string
 	succ, fail string
 }
 
-func (p *prepos) condition(from, to string) { // it is `condition` for `pre`
-	p.transition(from, to) // but `transition` for `pos`
+func (p *prepos) condition(from, to string) {
+	p.edge(from, to)
+}
+
+func (p *prepos) transition(from, to string) {
+	p.edge(from, to)
+}
+
+func (p *prepos) edge(from, to string) {
+	p.fsm = edge{
+		name:  from,
+		state: to,
+	}
 }
 
 func (p *prepos) failTestCase(text string) {
@@ -90,13 +157,6 @@ func (p *prepos) okAssertion(text string) {
 	p.arnS = append(p.arnS, text)
 }
 
-func (p *prepos) transition(from, to string) {
-	p.fsm = append(p.fsm, edge{
-		name:  from,
-		state: to,
-	})
-}
-
 type trimmable string
 
 func (ts trimmable) trim() string {
@@ -108,10 +168,11 @@ func (ts trimmable) trim() string {
 type skeleListener struct {
 	*machine
 	*parser.BaseSkeleListener
+	errors []error
 
 	lnSink func(trimmable)
 
-	fsmSink func(string, string)
+	fsmSink func(string, string, string)
 	arnSink func(string)
 	tcsSink func(string)
 }
@@ -174,6 +235,8 @@ func containsFile(ff []file, f file) bool {
 	return false
 }
 
+var ErrInvalidOperator = errors.New("invalid operator")
+
 func (c *skeleListener) EnterFun(*parser.FunContext) {
 	cf := c.machine.currentPackage().currentFile()
 
@@ -189,9 +252,13 @@ func (c *skeleListener) EnterFun(*parser.FunContext) {
 		cf.fun = append(cf.fun, f)
 	}
 
-	c.fsmSink = func(name, state string) {
+	c.fsmSink = func(name, state, op string) {
+		if op != "=" {
+			c.errors = append(c.errors, fmt.Errorf("fun: %s, fsm: %s %s, op '%s': %w", cf.name, name, state, op, ErrInvalidOperator))
+			return
+		}
 		fun := cf.currentFun()
-		fun.condition(name, state)
+		fun.from(name, state)
 	}
 }
 
@@ -225,7 +292,11 @@ func (c *skeleListener) EnterPre(ctx *parser.PreContext) {
 		parsePreposLine(in.trim(), adapter)
 	}
 
-	c.fsmSink = func(name, state string) {
+	c.fsmSink = func(name, state, op string) {
+		if op != "=" {
+			c.errors = append(c.errors, fmt.Errorf("fun: '%s', fsm: %s %s, op '%s': %w", cf.name, name, state, op, ErrInvalidOperator))
+			return
+		}
 		cf.currentPre().condition(name, state)
 	}
 
@@ -271,6 +342,14 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 		parsePreposLine(in.trim(), adapter)
 	}
 
+	c.fsmSink = func(name, state, op string) {
+		if op != "->" {
+			c.errors = append(c.errors, fmt.Errorf("fun: '%s', fsm: %s %s, op '%s': %w", cf.name, name, state, op, ErrInvalidOperator))
+			return
+		}
+		cf.currentPos().transition(name, state)
+	}
+
 	c.tcsSink = func(s string) {
 		pos := cf.currentPos()
 
@@ -299,7 +378,7 @@ func (c *skeleListener) EnterLn(ctx *parser.LnContext) {
 }
 
 var (
-	fsmReg = regexp.MustCompile(`fsm\{(?P<name>\w+)((?P<op>(=))|(?P<arr>(->)))(?P<state>\w+)\}`)
+	fsmReg = regexp.MustCompile(`fsm\{(?P<name>\w+)((?P<op>(=|->)))(?P<state>\w+)\}`)
 	arnReg = regexp.MustCompile(`arn\{(?P<text>([<>] |<> )?(\w+(,* +\w+)*))\}`)
 	tcsReg = regexp.MustCompile(`tcs\{(?P<text>([<>] )?(\w+(,* +\w+)*))\}`)
 
@@ -338,16 +417,8 @@ func (c *skeleListener) EnterComment(ctx *parser.CommentContext) {
 			results[fsmNames[i]] = name
 		}
 
-		name, state := results["name"], results["state"]
-
-		if results["op"] == "=" {
-			c.fsmSink(name, state)
-			continue
-		}
-
-		// if op is `->` means it's a post effect
-		pos := c.machine.currentPackage().currentFile().currentFun().currentPos()
-		pos.transition(name, state)
+		name, state, op := results["name"], results["state"], results["op"]
+		c.fsmSink(name, state, op)
 	}
 }
 

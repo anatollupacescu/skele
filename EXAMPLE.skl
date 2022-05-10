@@ -8,28 +8,35 @@ file inventory_test.go
 
 # comments are allowed, too
 
+fsm
+    \ inventory
+states
+    \ enabled
+    \ disabled
+
 fun
     \ create inventory item
 pre
     \ name empty
-    \ name non unique   \ fail to check for uniqueness # precondition comment
+    \ name non unique       \ fail to check for uniqueness  # precondition comment
 pos
-    \ item is saved     \ fail to saving the item
+    \ item is saved         \ fail to save the item         # fsm{inventory->enabled}
 
 fun
-    \ disable item
+    \ disable item                                          # fsm{inventory=enabled}
 pos
-    \ item is disabled      \ fail to disable item
+    \ item is disabled      \ fail to disable item          # fsm{inventory->disabled}
 
 fun
-    \ enable item
+    \ enable item                                           # fsm{inventory=disabled}
 pos
-    \ item is enabled       \ fail to enable item
+    \ item is enabled       \ fail to enable item           # fsm{inventory->enabled}
 
 fun
     \ validate item
 pre
     \ item does not exist   \ fail to check for presence
+    \ item disabled                                         # fsm{inventory=enabled}
 pos
     \ item valid
 
@@ -58,31 +65,36 @@ doc
 
 file recipe_test.go
 
+fsm
+    \ recipe
+states
+    \ enabled
+    \ disabled
+
 fun
     \ create recipe
 pre
     \ empty name
-    \ no ingredients
+    \ recipe name not unique        \ fail to check for name uniqueness
+    \ empty ingredient list
     \ invalid ingredient quantity
     \ duplicate ingredient
-    \ ingredient not found      \ fail to find ingredient
-    \ ingredient disabled
-    \ recipe name not unique    \ fail to check for name uniqueness
+    \ ingredient invalid                                                        # fsm{inventory=valid}
 pos
-    \ recipe created            \ fail to save recipe
+    \ recipe created                \ fail to save recipe                       # fsm{recipe->enabled}
 
 fun
-    \ disable recipe
+    \ disable recipe                                                    # fsm{recipe=enabled}
 pos
-    \ recipe is disabled      \ fail to disable recipe
+    \ recipe is disabled      \ fail to disable recipe                  # fsm{recipe->disabled}
 
 fun
-    \ enable recipe
+    \ enable recipe                                                     # fsm{recipe=disabled}
 pos
-    \ recipe is enabled       \ fail to enable recipe
+    \ recipe is enabled       \ fail to enable recipe                   # fsm{recipe->enabled}
 
 fun
-    \ validate recipe
+    \ validate recipe                                                   # tag{recipe.valid}
 pre
     \ recipe not found        \ fail to check for presence
     \ recipe disabled
@@ -98,18 +110,17 @@ doc
 file stock_test.go
 
 fun
-    \ provision
+    \ provision                                             # fsm{inventory=enabled}
 pre
     \ quantity is negative
 pos
     \ position updated          \ fail to update quantity
 
 fun
-    \ extract
+    \ extract                                               # fsm{recipe=enabled}
 pre
     \ quantity is negative
-    \ recipe not found                  \ fail to get recipe
-    \ recipe is invalid
+    \ recipe is invalid                                     # ref{recipe.valid}
     \ item not present in stock         \ fail to get stock item
     \ not enough stock for item
 pos

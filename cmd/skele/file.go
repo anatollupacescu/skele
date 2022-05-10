@@ -10,7 +10,7 @@ import (
 	"github.com/anatollupacescu/skele/parser"
 )
 
-func (m *machine) read(name string) {
+func (m *machine) read(name string) []error {
 	str := readFile(name)
 	is := antlr.NewInputStream(str)
 	lexer := parser.NewSkeleLexer(is)
@@ -19,6 +19,7 @@ func (m *machine) read(name string) {
 	obj := new(skeleListener)
 	obj.machine = m
 	antlr.ParseTreeWalkerDefault.Walk(obj, p.Start())
+	return obj.errors
 }
 
 func readFile(name string) string {

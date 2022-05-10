@@ -44,8 +44,8 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "failure to add list", fun_add_list.pos[0].fail)
 	assert.Equal(t, "failed to notify", fun_add_list.pos[0].tcF[0])
 	assert.Equal(t, "could not persist, assert correct reason, assert error", fun_add_list.pos[0].tcF[1])
-	assert.Equal(t, "list", fun_add_list.pos[0].fsm[0].name)
-	assert.Equal(t, "active", fun_add_list.pos[0].fsm[0].state)
+	assert.Equal(t, "list", fun_add_list.pos[0].fsm.name)
+	assert.Equal(t, "active", fun_add_list.pos[0].fsm.state)
 
 	fun_remove_list := pkg_list.file[0].fun[1]
 	assert.Equal(t, "remove list", fun_remove_list.name)
@@ -55,14 +55,14 @@ func TestTODO(t *testing.T) {
 	assert.Equal(t, "has pending items", fun_remove_list.pre[0].succ)
 	assert.Equal(t, "", fun_remove_list.pre[0].fail)
 
-	assert.Equal(t, "item", fun_remove_list.pre[0].fsm[0].name)
-	assert.Equal(t, "done", fun_remove_list.pre[0].fsm[0].state)
+	assert.Equal(t, "item", fun_remove_list.pre[0].fsm.name)
+	assert.Equal(t, "done", fun_remove_list.pre[0].fsm.state)
 
 	assert.Equal(t, "list removed", fun_remove_list.pos[0].succ)
 	assert.Equal(t, "failure to remove list", fun_remove_list.pos[0].fail)
 
-	assert.Equal(t, "list", fun_remove_list.pos[0].fsm[0].name)
-	assert.Equal(t, "removed", fun_remove_list.pos[0].fsm[0].state)
+	assert.Equal(t, "list", fun_remove_list.pos[0].fsm.name)
+	assert.Equal(t, "removed", fun_remove_list.pos[0].fsm.state)
 
 	// item
 	pkg_item := m.pkgs[1]
