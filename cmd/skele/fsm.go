@@ -66,6 +66,11 @@ func (m mFSMS) fun(fun fun) (errs []error) {
 		}
 
 		cf := m[pos.fsm.name]
+		if len(cf.states) == 0 {
+			errs = append(errs, fmt.Errorf("state machine not found: %s: %w", pos.fsm.name, ErrInvalidTransition))
+			return
+		}
+
 		init := cf.states[0]
 
 		if fun.fsm != nil && pos.fsm.name != fun.fsm.name && pos.fsm.state != init {
