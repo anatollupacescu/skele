@@ -363,6 +363,11 @@ func (c *skeleListener) EnterPos(ctx *parser.PosContext) {
 
 	c.arnSink = func(s string) {
 		pos := cf.currentPos()
+		if strings.HasPrefix(s, bothSign) {
+			pos.failAssertion(s[len(bothSign):])
+			pos.okAssertion(s[len(bothSign):])
+			return
+		}
 		if strings.HasPrefix(s, failSign) {
 			pos.failAssertion(s[len(failSign):])
 			return
